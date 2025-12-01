@@ -8,7 +8,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Fonts -->
+    <!-- Tipografía -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -17,7 +17,7 @@
             background: linear-gradient(180deg, #0b1220, #0f172a);
         }
 
-        /* Fade */
+        /* Fade in */
         .fade-in { animation: fadeIn 1.2s ease-out forwards; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(30px); }
@@ -29,28 +29,25 @@
             background: rgba(255,255,255,0.05);
         }
 
-        /* ----- LUCES NAVIDEÑAS ----- */
-        .luces-navidad {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
+        /* ----- GUIRNALDAS NAVIDEÑAS ----- */
+        .guirnaldas {
+            width: 100%;
+            height: 70px;
+            background-image: url('https://i.imgur.com/4oJt7fT.png'); /* luces colgantes */
+            background-size: cover;
+            background-repeat: no-repeat;
             margin-bottom: 10px;
+            animation: brilloGuirnalda 2s infinite ease-in-out alternate;
         }
-        .luz {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            animation: parpadeo 1.5s infinite alternate;
+        @keyframes brilloGuirnalda {
+            0% { filter: brightness(0.8); }
+            100% { filter: brightness(1.2); }
         }
-        .luz:nth-child(1) { background:#ff4242; animation-delay:0s; }
-        .luz:nth-child(2) { background:#ffd700; animation-delay:0.3s; }
-        .luz:nth-child(3) { background:#4fff72; animation-delay:0.6s; }
-        .luz:nth-child(4) { background:#00c2ff; animation-delay:0.9s; }
-        .luz:nth-child(5) { background:#ff66ff; animation-delay:1.2s; }
 
-        @keyframes parpadeo {
-            0% { opacity:0.3; transform:scale(0.9); }
-            100% { opacity:1; transform:scale(1.3); }
+        /* ----- LUCES DEL BORDE ----- */
+        .glow-border {
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 20px rgba(255, 230, 0, 0.5), 0 0 40px rgba(255, 230, 0, 0.3);
         }
 
         /* ----- TARJETA NAVIDEÑA ----- */
@@ -79,17 +76,13 @@
             position: fixed;
             top: -10px;
             color: white;
-            font-size: 1em;
             pointer-events: none;
-            animation-name: snowfall;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
+            animation: snowfall linear infinite;
             z-index: 9999;
         }
-
         @keyframes snowfall {
-            0% { transform: translateY(0) rotate(0deg); opacity:1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity:0.2; }
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0.2; }
         }
 
         /* ----- TEXTO CON NIEVE ACUMULADA ----- */
@@ -97,7 +90,6 @@
             position: relative;
             display: inline-block;
         }
-
         .text-nieve::before {
             content: "";
             position: absolute;
@@ -115,14 +107,14 @@
 
 <body class="text-white">
 
-<!-- NIEVE AUTOMÁTICA -->
+<!-- NIEVE -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const cantidad = 45;
     for (let i = 0; i < cantidad; i++) {
         let snow = document.createElement("div");
         snow.className = "snowflake";
-        snow.innerHTML = "❄";
+        snow.textContent = "❄";
 
         snow.style.left = Math.random()*100 + "vw";
         snow.style.fontSize = (Math.random()*10 + 8) + "px";
@@ -134,12 +126,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-<!-- WRAPPER -->
+<!-- CONTENIDO -->
 <div class="min-h-screen w-full p-4 flex flex-col items-center">
 
     <!-- LOGO -->
     <header class="w-full max-w-2xl flex justify-center py-6 fade-in">
-        <img src="./logo.png" class="h-28 object-contain opacity-90">
+        <img src="./logo.png" class="h-28">
     </header>
 
     <!-- HERO -->
@@ -148,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
             Evento Navideño Empresarial
         </h1>
 
-        <h2 class="text-xl md:text-2xl mt-2 text-gray-300 font-semibold">
+        <h2 class="text-xl md:text-2xl mt-2 text-gray-300">
             Transporte Pesado Águila Eagletrucks S.A.
         </h2>
 
@@ -156,25 +148,25 @@ document.addEventListener("DOMContentLoaded", () => {
             Te invitamos a celebrar un año de esfuerzo, crecimiento y unión empresarial.
         </p>
 
-        <div class="mt-8 bg-yellow-400 text-gray-900 px-7 py-3 rounded-full text-xl font-bold shadow-xl w-fit mx-auto">
+        <div class="mt-8 bg-yellow-400 text-gray-900 px-7 py-3 rounded-full text-xl font-bold shadow-xl">
             🎄 20 de diciembre – Desde las 10:00 AM
         </div>
     </section>
 
-    <div class="w-full max-w-xl border-b border-gray-600 my-10"></div>
+    <div class="w-full max-w-xl border-b border-gray-700 my-10"></div>
 
     <!-- DETALLES -->
-    <section class="max-w-3xl glass p-6 rounded-2xl shadow-xl fade-in border border-white/10">
+    <section class="max-w-3xl glass p-6 rounded-2xl shadow-xl fade-in glow-border">
         <h3 class="text-2xl font-bold text-yellow-300 mb-6 text-nieve">
             Detalles del Evento
         </h3>
 
-        <div class="text-gray-200 space-y-4 text-lg">
+        <div class="text-gray-200 text-lg space-y-4">
             <p><span class="font-semibold text-yellow-200">Fecha:</span> 20 de diciembre</p>
             <p><span class="font-semibold text-yellow-200">Hora:</span> Desde las 10:00 AM</p>
             <p>
                 <span class="font-semibold text-yellow-200">Lugar:</span><br>
-                SHUSHUFINDI, Barrio Las Vegas, Av. Unidad Nacional y Pablo Milanés.
+                SHUSHUFINDI, Barrio Las Vegas.
             </p>
 
             <a href="https://maps.app.goo.gl/VLyivvqmRLtEZRSVA?g_st=ipc"
@@ -185,16 +177,14 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
     </section>
 
-    <div class="w-full max-w-xl border-b border-gray-600 my-10"></div>
+    <div class="w-full max-w-xl border-b border-gray-700 my-10"></div>
 
-    <!-- TARJETA NAVIDEÑA -->
+    <!-- TARJETA CON GUIRNALDAS -->
+    <div class="guirnaldas"></div>
+
     <section class="max-w-3xl text-center fade-in">
 
-        <div class="luces-navidad">
-            <div class="luz"></div><div class="luz"></div><div class="luz"></div><div class="luz"></div><div class="luz"></div>
-        </div>
-
-        <div id="card-magica" class="card-magica cerrada glass p-8 rounded-2xl shadow-2xl border border-red-300/30">
+        <div id="card-magica" class="card-magica cerrada glass p-8 rounded-2xl glow-border shadow-2xl border border-red-300/20">
             <h2 class="text-3xl font-bold text-yellow-300 text-nieve mb-4">
                 🎄✨ Mensaje de Navidad ✨🎄
             </h2>
@@ -212,21 +202,44 @@ document.addEventListener("DOMContentLoaded", () => {
                 </p>
 
                 <p class="mb-4">
-                    Renovemos la fe, fortalezcamos los lazos y abramos paso a un 2025 lleno de oportunidades,
+                    Renovemos la fe, fortalezcamos los lazos y abramos paso a un 2026 lleno de oportunidades,
                     crecimiento y bendiciones para todos.
                 </p>
 
                 <p class="text-yellow-300 text-xl font-bold mt-6">
-                    ¡Feliz Navidad y próspero Año Nuevo 2025!
+                    ¡Feliz Navidad y próspero Año Nuevo 2026!
                 </p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="w-full max-w-xl border-b border-gray-600 my-10"></div>
+    <script>
+    // TARJETA + EFECTO CAJA MUSICAL
+    document.addEventListener("DOMContentLoaded", () => {
+        const card = document.getElementById("card-magica");
+        const contenido = document.getElementById("contenido-magico");
+        const sonidoCaja = new Audio("./cajita.mp3");
+
+        const observer = new IntersectionObserver((entries)=>{
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    card.classList.remove("cerrada");
+                    card.classList.add("abierta");
+                    contenido.classList.add("visible");
+
+                    sonidoCaja.volume = 0.5;
+                    sonidoCaja.play().catch(()=>{});
+                }
+            })
+        },{threshold:0.4});
+
+        observer.observe(card);
+    });
+    </script>
+
+    <div class="w-full max-w-xl border-b border-gray-700 my-10"></div>
 
     <!-- FORMULARIO -->
-    <section class="max-w-3xl glass p-6 rounded-2xl shadow-xl fade-in border border-white/10">
+    <section class="max-w-3xl glass p-6 rounded-2xl shadow-xl fade-in glow-border">
         <h3 class="text-3xl font-bold text-yellow-300 text-center text-nieve mb-6">
             Confirma tu asistencia
         </h3>
@@ -238,7 +251,6 @@ document.addEventListener("DOMContentLoaded", () => {
             action="/gracias.html"
             class="space-y-6 text-gray-200 text-lg"
         >
-
             <input type="hidden" name="form-name" value="asistencia-evento-navidad">
 
             <p class="hidden">
@@ -279,7 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </form>
     </section>
 
-    <div class="w-full max-w-xl border-b border-gray-600 my-10"></div>
+    <div class="w-full max-w-xl border-b border-gray-700 my-10"></div>
 
     <section class="text-center fade-in mt-6">
         <h3 class="text-3xl font-bold text-yellow-300 text-nieve mb-4">
@@ -295,30 +307,6 @@ document.addEventListener("DOMContentLoaded", () => {
     </footer>
 
 </div>
-
-<!-- TARJETA: SONIDO -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const card = document.getElementById("card-magica");
-    const contenido = document.getElementById("contenido-magico");
-    const audio = new Audio("./navidad.mp3");
-
-    const observer = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-            if(entry.isIntersecting){
-                card.classList.remove("cerrada");
-                card.classList.add("abierta");
-                contenido.classList.add("visible");
-
-                audio.volume = 0.4;
-                audio.play().catch(()=>{});
-            }
-        })
-    },{threshold:0.4});
-
-    observer.observe(card);
-});
-</script>
 
 </body>
 </html>
