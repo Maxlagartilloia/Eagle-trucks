@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación Navideña - Eagletrucks S.A.</title>
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Fonts -->
@@ -13,37 +13,28 @@
 
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #0b1220, #0f172a);
-        }
-
-        /* Fade */
-        .fade-in { animation: fadeIn 1.2s ease-out forwards; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .glass {
-            backdrop-filter: blur(10px);
-            background: rgba(255,255,255,0.05);
+            font-family: "Inter", sans-serif;
+            background: linear-gradient(180deg, #0b1220, #12203a);
+            overflow-x: hidden;
         }
 
         /* NIEVE */
-        .snowflake {
+        .snow {
             position: fixed;
             top: -10px;
             color: white;
+            user-select: none;
             pointer-events: none;
-            animation: snowfall linear infinite;
-            z-index: 99999;
-        }
-        @keyframes snowfall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0.2; }
+            animation: fall linear infinite;
+            z-index: 10000;
         }
 
-        /* NIEVE EN TECHO DE TÍTULOS */
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0.3; }
+        }
+
+        /* NIEVE EN TÍTULOS */
         .text-nieve {
             position: relative;
             display: inline-block;
@@ -51,322 +42,271 @@
         .text-nieve::before {
             content: "";
             position: absolute;
-            top: -12px;
+            top: -14px;
             left: 0;
             width: 100%;
-            height: 14px;
-            background-image: url('https://i.imgur.com/rRx67oK.png');
+            height: 16px;
+            background-image: url("https://i.imgur.com/rRx67oK.png");
             background-size: cover;
-            background-repeat: no-repeat;
         }
 
-        /* TARJETA */
-        .card-magica {
-            transform-style: preserve-3d;
-            transition: all .9s ease;
-        }
-        .card-magica.cerrada {
-            transform: rotateX(-90deg);
-            opacity: 0;
-        }
-        .card-magica.abierta {
-            transform: rotateX(0deg);
-            opacity: 1;
-        }
-        .card-contenido {
-            opacity: 0;
-            transition: opacity 1.2s ease;
-        }
-        .card-contenido.visible {
-            opacity: 1;
-        }
-
-        /* Luces Neón */
-        .luces-neon {
+        /* LUCECITAS */
+        .luces {
             display: flex;
             justify-content: center;
             gap: 12px;
             margin-bottom: 12px;
         }
-        .bola {
+        .luz {
             width: 15px;
             height: 15px;
             border-radius: 50%;
-            animation: luzNeon 1.3s infinite alternate;
+            animation: luz 1.3s infinite alternate;
         }
-        .bola:nth-child(1) { background: #ff3b3b; animation-delay: .1s; }
-        .bola:nth-child(2) { background: #ffd93b; animation-delay: .3s; }
-        .bola:nth-child(3) { background: #3bff4e; animation-delay: .5s; }
-        .bola:nth-child(4) { background: #3bb8ff; animation-delay: .7s; }
-        .bola:nth-child(5) { background: #ff3bff; animation-delay: .9s; }
+        .luz:nth-child(1) { background: #ff3b3b; animation-delay: .1s; }
+        .luz:nth-child(2) { background: #ffd93b; animation-delay: .3s; }
+        .luz:nth-child(3) { background: #34ff5c; animation-delay: .5s; }
+        .luz:nth-child(4) { background: #3bb8ff; animation-delay: .7s; }
 
-        @keyframes luzNeon {
-            from { filter: brightness(0.7) drop-shadow(0 0 3px white); }
-            to { filter: brightness(1.5) drop-shadow(0 0 8px white); }
+        @keyframes luz {
+            0% { filter: brightness(0.4); }
+            100% { filter: brightness(1.6) drop-shadow(0 0 6px white); }
+        }
+
+        /* TARJETA */
+        .card {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s ease;
+        }
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* COUNTDOWN */
-        .count-box {
-            background: rgba(255,255,255,0.05);
-            border: 2px solid rgba(255,255,255,0.2);
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        .count-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .count-number {
+            font-size: 3rem;
+            color: #facc15;
+            line-height: 1;
+        }
+
+        .count-label {
+            color: #e5e7eb;
+            margin-top: 4px;
+            font-size: 1rem;
         }
     </style>
 </head>
 
-<body class="text-white">
+<body>
 
 <!-- NIEVE -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const cantidad = 50;
-    for (let i=0; i<cantidad; i++){
-        let snow = document.createElement("div");
-        snow.className = "snowflake";
-        snow.textContent = "❄";
-
-        snow.style.left = Math.random()*100 + "vw";
-        snow.style.fontSize = (Math.random()*10 + 8) + "px";
-        snow.style.animationDuration = (Math.random()*6 + 4) + "s";
-        snow.style.animationDelay = Math.random()*5 + "s";
-
-        document.body.appendChild(snow);
+    const total = 50;
+    for (let i=0; i<total; i++) {
+        let s = document.createElement("div");
+        s.className = "snow";
+        s.textContent = "❄";
+        s.style.left = Math.random()*100 + "vw";
+        s.style.fontSize = (Math.random()*10 + 10) + "px";
+        s.style.animationDuration = (Math.random()*5 + 5) + "s";
+        s.style.animationDelay = Math.random()*5 + "s";
+        document.body.appendChild(s);
     }
 });
 </script>
 
-<!-- CONTENIDO PRINCIPAL -->
-<div class="min-h-screen w-full p-4 flex flex-col items-center">
+<!-- CONTENIDO -->
+<div class="max-w-3xl mx-auto p-6 text-center text-white">
 
     <!-- LOGO -->
-    <header class="w-full max-w-2xl flex justify-center py-6 fade-in">
-        <img src="./logo.png" class="h-28">
-    </header>
+    <div class="flex justify-center mt-6">
+        <img src="logo.png" class="h-32 drop-shadow-xl">
+    </div>
 
-    <!-- HERO -->
-    <section class="max-w-3xl text-center fade-in">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-yellow-400 text-nieve">
-            Invitación Navideña
-        </h1>
+    <!-- TÍTULO -->
+    <h1 class="text-4xl font-extrabold text-yellow-400 mt-6 text-nieve">
+        Invitación Navideña
+    </h1>
 
-        <h2 class="text-xl md:text-2xl mt-2 text-gray-300">
-            Transporte Pesado Águila Eagletrucks S.A.
-        </h2>
+    <p class="mt-2 text-lg text-gray-300">
+        Transporte Pesado Águila Eagletrucks S.A.
+    </p>
 
-        <p class="mt-6 text-lg text-gray-300">
-            Te invitamos a celebrar un momento especial lleno de unidad, alegría y espíritu navideño.
-        </p>
-
-        <div class="mt-8 bg-yellow-400 text-gray-900 px-7 py-3 rounded-full text-xl font-bold shadow-xl">
-            🎄 20 de diciembre – Desde las 10:00 AM
-        </div>
-    </section>
-
-    <div class="w-full max-w-xl border-b border-gray-700 my-10"></div>
+    <!-- FECHA -->
+    <div class="mt-6 bg-yellow-400 text-gray-900 px-6 py-3 rounded-full text-xl font-bold shadow-xl inline-block">
+        🎄 20 de diciembre – 10:00 AM
+    </div>
 
     <!-- COUNTDOWN -->
-    <section class="max-w-3xl text-center fade-in">
-        <h3 class="text-3xl font-bold text-yellow-300 text-nieve mb-6">Cuenta regresiva</h3>
+    <h2 class="text-3xl font-bold text-yellow-300 text-nieve mt-12 mb-6">
+        Falta para el evento
+    </h2>
 
-        <div id="contador" class="grid grid-cols-2 md:grid-cols-4 gap-5">
-            <div class="count-box p-5 rounded-xl text-center">
-                <h2 id="dias" class="text-5xl font-bold text-yellow-300">00</h2>
-                <p class="text-gray-300">Días</p>
-            </div>
+    <div id="countdown" class="grid grid-cols-2 md:grid-cols-4 gap-6 justify-center">
 
-            <div class="count-box p-5 rounded-xl text-center">
-                <h2 id="horas" class="text-5xl font-bold text-yellow-300">00</h2>
-                <p class="text-gray-300">Horas</p>
-            </div>
-
-            <div class="count-box p-5 rounded-xl text-center">
-                <h2 id="minutos" class="text-5xl font-bold text-yellow-300">00</h2>
-                <p class="text-gray-300">Minutos</p>
-            </div>
-
-            <div class="count-box p-5 rounded-xl text-center">
-                <h2 id="segundos" class="text-5xl font-bold text-yellow-300">00</h2>
-                <p class="text-gray-300">Segundos</p>
-            </div>
+        <div class="count-item">
+            <div id="dias" class="count-number">00</div>
+            <div class="count-label">Días</div>
         </div>
-    </section>
 
-    <!-- SCRIPT DEL COUNTDOWN -->
+        <div class="count-item">
+            <div id="horas" class="count-number">00</div>
+            <div class="count-label">Horas</div>
+        </div>
+
+        <div class="count-item">
+            <div id="minutos" class="count-number">00</div>
+            <div class="count-label">Minutos</div>
+        </div>
+
+        <div class="count-item">
+            <div id="segundos" class="count-number">00</div>
+            <div class="count-label">Segundos</div>
+        </div>
+
+    </div>
+
+    <!-- COUNTDOWN SCRIPT -->
     <script>
-    const fechaEvento = new Date("2024-12-20T10:00:00").getTime();
+    const fecha = new Date("2024-12-20T10:00:00").getTime();
 
     setInterval(() => {
         const ahora = new Date().getTime();
-        const restante = fechaEvento - ahora;
+        const dif = fecha - ahora;
 
-        const d = Math.floor(restante / (1000*60*60*24));
-        const h = Math.floor((restante % (1000*60*60*24)) / (1000*60*60));
-        const m = Math.floor((restante % (1000*60*60)) / (1000*60));
-        const s = Math.floor((restante % (1000*60)) / 1000);
+        if (dif <= 0) return;
 
-        document.getElementById("dias").innerHTML = d < 10 ? "0"+d : d;
-        document.getElementById("horas").innerHTML = h < 10 ? "0"+h : h;
-        document.getElementById("minutos").innerHTML = m < 10 ? "0"+m : m;
-        document.getElementById("segundos").innerHTML = s < 10 ? "0"+s : s;
-
+        document.getElementById("dias").innerHTML = Math.floor(dif / (1000*60*60*24));
+        document.getElementById("horas").innerHTML = Math.floor((dif%(1000*60*60*24))/(1000*60*60));
+        document.getElementById("minutos").innerHTML = Math.floor((dif%(1000*60*60))/(1000*60));
+        document.getElementById("segundos").innerHTML = Math.floor((dif%(1000*60))/1000);
     }, 1000);
     </script>
 
-    <div class="w-full max-w-xl border-b border-gray-700 my-10"></div>
+    <!-- SEPARADOR -->
+    <div class="w-full h-px bg-gray-600 my-10 opacity-40"></div>
 
     <!-- DETALLES -->
-    <section class="max-w-3xl glass p-6 rounded-2xl shadow-xl fade-in">
+    <h2 class="text-3xl font-bold text-yellow-300 text-nieve mb-6">
+        Detalles del Evento
+    </h2>
 
-        <h3 class="text-2xl font-bold text-yellow-300 text-nieve mb-6">Detalles del Evento</h3>
+    <p class="text-gray-300 text-lg">
+        📍 <strong>Complejo Turístico Apikai</strong><br>
+        Shushufindi – Km 12 vía a Miss Ecuador
+    </p>
 
-        <div class="text-gray-200 text-lg space-y-4">
-            <p><span class="font-semibold text-yellow-200">Fecha:</span> 20 de diciembre</p>
-            <p><span class="font-semibold text-yellow-200">Hora:</span> Desde las 10:00 AM</p>
+    <a href="https://maps.app.goo.gl/VLyivvqmRLtEZRSVA"
+       target="_blank"
+       class="mt-6 inline-block bg-blue-500 hover:bg-blue-400 text-white font-semibold px-7 py-3 rounded-full shadow-lg transition">
+        Ver Ubicación en Google Maps
+    </a>
 
-            <p>
-                <span class="font-semibold text-yellow-200">Lugar:</span><br>
-                Complejo Turístico Apikai<br>
-                Shushufindi km 12 vía a Miss Ecuador
-            </p>
+    <!-- SEPARADOR -->
+    <div class="w-full h-px bg-gray-600 my-10 opacity-40"></div>
 
-            <a href="https://maps.app.goo.gl/VLyivvqmRLtEZRSVA?g_st=ipc"
-               target="_blank"
-               class="mt-4 inline-block bg-blue-500 hover:bg-blue-400 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition">
-               📍 Ver ubicación del evento
-            </a>
-        </div>
-    </section>
-
-    <div class="w-full max-w-xl border-b border-gray-700 my-10"></div>
-
-    <!-- Luces neon -->
-    <div class="luces-neon">
-        <div class="bola"></div><div class="bola"></div><div class="bola"></div><div class="bola"></div><div class="bola"></div>
+    <!-- LUCES -->
+    <div class="luces mb-4">
+        <div class="luz"></div><div class="luz"></div><div class="luz"></div><div class="luz"></div>
     </div>
 
-    <!-- Tarjeta mágica -->
-    <section class="max-w-3xl text-center fade-in">
-        <div id="card-magica" class="card-magica cerrada glass p-8 rounded-2xl shadow-2xl">
+    <!-- TARJETA -->
+    <div id="tarjeta" class="card glass p-8 rounded-2xl shadow-2xl border border-white/10">
 
-            <h2 class="text-3xl font-bold text-yellow-300 text-nieve mb-4">
-                ✨ Mensaje de Navidad ✨
-            </h2>
+        <h2 class="text-3xl font-bold text-yellow-300 text-nieve mb-4">
+            Mensaje Navideño
+        </h2>
 
-            <div id="contenido-magico" class="card-contenido text-gray-200 leading-relaxed text-lg">
+        <p class="leading-relaxed text-gray-300 text-lg">
+            En esta época tan especial, celebramos la unión, la gratitud y el esfuerzo de toda nuestra gran
+            familia Eagletrucks S.A.  
+            Que esta Navidad ilumine tus días con paz, amor y alegría, y que el 2026 llegue cargado de bendiciones,
+            prosperidad y éxitos para ti y tu familia.
+        </p>
 
-                <p class="mb-4">
-                    En esta época tan especial, queremos compartir un mensaje lleno de cariño y esperanza 
-                    con quienes hacen grande a nuestra familia Eagletrucks S.A.
-                </p>
+        <p class="mt-6 text-yellow-300 text-xl font-bold">
+            ¡Feliz Navidad y Próspero Año Nuevo 2026!
+        </p>
+    </div>
 
-                <p class="mb-4">
-                    Que la paz, el amor y la gratitud iluminen tu hogar. Que cada sonrisa sea un recordatorio 
-                    de los logros alcanzados y de todas las bendiciones que vienen camino.
-                </p>
-
-                <p class="mb-4">
-                    Que celebremos juntos la vida, la unidad y los sueños por cumplir. Que el 2026 sea un año 
-                    próspero, lleno de salud, oportunidades y alegrías para ti y tu familia.
-                </p>
-
-                <p class="text-yellow-300 text-xl font-bold mt-6">
-                    ¡Feliz Navidad y próspero Año Nuevo 2026!
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sonido cajita -->
+    <!-- TARJETA ANIMACIÓN + SONIDO -->
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const card = document.getElementById("card-magica");
-        const contenido = document.getElementById("contenido-magico");
-        const sonido = new Audio("./cajita.mp3");
+    const tarjeta = document.getElementById("tarjeta");
+    const sonido = new Audio("./cajita.mp3");
 
-        const observer = new IntersectionObserver((entries)=>{
-            entries.forEach(entry=>{
-                if(entry.isIntersecting){
-                    card.classList.remove("cerrada");
-                    card.classList.add("abierta");
-                    contenido.classList.add("visible");
+    const obs = new IntersectionObserver((e)=>{
+        if(e[0].isIntersecting){
+            tarjeta.classList.add("visible");
+            sonido.volume = .5;
+            sonido.play().catch(()=>{});
+        }
+    },{threshold:.4});
 
-                    sonido.volume = .5;
-                    sonido.play().catch(()=>{});
-                }
-            });
-        },{threshold:.4});
-
-        observer.observe(card);
-    });
+    obs.observe(tarjeta);
     </script>
 
-    <div class="w-full max-w-xl border-b border-gray-700 my-10"></div>
+    <!-- SEPARADOR -->
+    <div class="w-full h-px bg-gray-600 my-10 opacity-40"></div>
 
     <!-- FORMULARIO -->
-    <section class="max-w-3xl glass p-6 rounded-2xl shadow-xl fade-in">
-        <h3 class="text-3xl font-bold text-yellow-300 text-center text-nieve mb-6">
-            Confirma tu asistencia
-        </h3>
+    <h2 class="text-3xl font-bold text-yellow-300 text-nieve mb-6">
+        Confirmar Asistencia
+    </h2>
 
-        <form 
-            name="asistencia-evento-navidad"
-            method="POST"
-            data-netlify="true"
-            action="/gracias.html"
-            class="space-y-6 text-gray-200 text-lg"
-        >
+    <form 
+        name="asistencia-evento-navidad"
+        method="POST"
+        data-netlify="true"
+        action="/gracias.html"
+        class="space-y-6 text-gray-200 text-lg max-w-xl mx-auto glass p-6 rounded-2xl shadow-xl border border-white/10"
+    >
 
-            <input type="hidden" name="form-name" value="asistencia-evento-navidad">
+        <input type="hidden" name="form-name" value="asistencia-evento-navidad">
 
-            <p class="hidden">
-                <label>No llenar: <input name="bot-field"></label>
-            </p>
+        <label class="block">
+            Nombre y Apellido
+            <input name="nombre" required class="w-full px-4 py-3 mt-1 bg-gray-800 rounded-lg border border-gray-700">
+        </label>
 
-            <div>
-                <label class="font-semibold">Nombre y Apellido *</label>
-                <input name="nombre" required class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700">
-            </div>
+        <label class="block">
+            Cédula
+            <input name="cedula" required class="w-full px-4 py-3 mt-1 bg-gray-800 rounded-lg border border-gray-700">
+        </label>
 
-            <div>
-                <label class="font-semibold">Cédula *</label>
-                <input name="cedula" required class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700">
-            </div>
+        <label class="block">
+            Teléfono
+            <input name="telefono" required class="w-full px-4 py-3 mt-1 bg-gray-800 rounded-lg border border-gray-700">
+        </label>
 
-            <div>
-                <label class="font-semibold">Teléfono *</label>
-                <input name="telefono" required class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700">
-            </div>
+        <label class="block">
+            ¿Asistirá?
+            <select name="asistencia" required class="w-full px-4 py-3 mt-1 bg-gray-800 rounded-lg border border-gray-700">
+                <option value="">Seleccione…</option>
+                <option value="Sí">Sí</option>
+                <option value="No">No</option>
+            </select>
+        </label>
 
-            <div>
-                <label class="font-semibold">¿Asistirá? *</label>
-                <select name="asistencia" required class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700">
-                    <option value="">Seleccione...</option>
-                    <option value="Sí">Sí asistiré</option>
-                    <option value="No">No podré asistir</option>
-                </select>
-            </div>
+        <button class="w-full py-3 bg-yellow-400 text-gray-900 font-bold rounded-lg text-xl hover:bg-yellow-300 transition">
+            Enviar Confirmación
+        </button>
 
-            <button class="w-full py-3 bg-yellow-400 text-gray-900 font-bold rounded-lg text-xl hover:bg-yellow-300 transition">
-                Enviar Confirmación
-            </button>
+    </form>
 
-        </form>
-    </section>
-
-    <div class="w-full max-w-xl border-b border-gray-700 my-10"></div>
-
-    <section class="text-center fade-in mt-6">
-        <h3 class="text-3xl font-bold text-yellow-300 text-nieve mb-4">
-            🎅✨ ¡No faltes! ✨🎅
-        </h3>
-        <p class="text-gray-300 text-lg max-w-xl mx-auto">
-            Será un día lleno de alegría, unión y espíritu navideño.
-        </p>
-    </section>
-
-    <footer class="text-center text-gray-400 py-10 text-sm">
-        © 2024 Eagletrucks S.A.
-    </footer>
+    <!-- FINAL -->
+    <p class="text-center text-gray-400 mt-12 mb-10">
+        © 2024 Eagletrucks S.A. • Invitación Navideña
+    </p>
 
 </div>
 
