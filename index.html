@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evento Navideño Empresarial - Eagletrucks S.A.</title>
+    <title>Invitación Navideña - Eagletrucks S.A.</title>
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Tipografía -->
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -17,8 +17,10 @@
             background: linear-gradient(180deg, #0b1220, #0f172a);
         }
 
-        /* Fade in */
-        .fade-in { animation: fadeIn 1.2s ease-out forwards; }
+        /* Fade */
+        .fade-in {
+            animation: fadeIn 1.2s ease-out forwards;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -29,31 +31,41 @@
             background: rgba(255,255,255,0.05);
         }
 
-        /* ----- GUIRNALDAS NAVIDEÑAS ----- */
-        .guirnaldas {
+        /* NIEVE */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: white;
+            pointer-events: none;
+            animation: snowfall linear infinite;
+            z-index: 99999;
+        }
+        @keyframes snowfall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0.2; }
+        }
+
+        /* NIEVE EN TECHO DE TÍTULOS */
+        .text-nieve {
+            position: relative;
+            display: inline-block;
+        }
+        .text-nieve::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
             width: 100%;
-            height: 70px;
-            background-image: url('https://i.imgur.com/4oJt7fT.png'); /* luces colgantes */
+            height: 14px;
+            background-image: url('https://i.imgur.com/rRx67oK.png');
             background-size: cover;
             background-repeat: no-repeat;
-            margin-bottom: 10px;
-            animation: brilloGuirnalda 2s infinite ease-in-out alternate;
-        }
-        @keyframes brilloGuirnalda {
-            0% { filter: brightness(0.8); }
-            100% { filter: brightness(1.2); }
         }
 
-        /* ----- LUCES DEL BORDE ----- */
-        .glow-border {
-            border: 2px solid rgba(255, 215, 0, 0.4);
-            box-shadow: 0 0 20px rgba(255, 230, 0, 0.5), 0 0 40px rgba(255, 230, 0, 0.3);
-        }
-
-        /* ----- TARJETA NAVIDEÑA ----- */
+        /* TARJETA */
         .card-magica {
-            transition: all 0.9s ease;
             transform-style: preserve-3d;
+            transition: all .9s ease;
         }
         .card-magica.cerrada {
             transform: rotateX(-90deg);
@@ -71,36 +83,34 @@
             opacity: 1;
         }
 
-        /* ----- NIEVE CAYENDO ----- */
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            color: white;
-            pointer-events: none;
-            animation: snowfall linear infinite;
-            z-index: 9999;
+        /* Luces Neón sobre la tarjeta */
+        .luces-neon {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 12px;
         }
-        @keyframes snowfall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0.2; }
+        .bola {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            animation: luzNeon 1.3s infinite alternate;
+        }
+        .bola:nth-child(1) { background: #ff3b3b; animation-delay: .1s; }
+        .bola:nth-child(2) { background: #ffd93b; animation-delay: .3s; }
+        .bola:nth-child(3) { background: #3bff4e; animation-delay: .5s; }
+        .bola:nth-child(4) { background: #3bb8ff; animation-delay: .7s; }
+        .bola:nth-child(5) { background: #ff3bff; animation-delay: .9s; }
+
+        @keyframes luzNeon {
+            from { filter: brightness(0.7) drop-shadow(0 0 3px white); }
+            to { filter: brightness(1.5) drop-shadow(0 0 8px white); }
         }
 
-        /* ----- TEXTO CON NIEVE ACUMULADA ----- */
-        .text-nieve {
-            position: relative;
-            display: inline-block;
-        }
-        .text-nieve::before {
-            content: "";
-            position: absolute;
-            top: -12px;
-            left: 0;
-            width: 100%;
-            height: 14px;
-            background-image: url('https://i.imgur.com/rRx67oK.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            pointer-events: none;
+        /* Borde Glow */
+        .glow-border {
+            box-shadow: 0 0 20px rgba(255,255,255,.4), 0 0 40px rgba(255,255,255,.2);
+            border: 2px solid rgba(255,255,255,0.2);
         }
     </style>
 </head>
@@ -111,7 +121,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const cantidad = 45;
-    for (let i = 0; i < cantidad; i++) {
+    for (let i=0; i<cantidad; i++){
         let snow = document.createElement("div");
         snow.className = "snowflake";
         snow.textContent = "❄";
@@ -137,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <!-- HERO -->
     <section class="max-w-3xl text-center fade-in">
         <h1 class="text-4xl md:text-5xl font-extrabold text-yellow-400 text-nieve">
-            Evento Navideño Empresarial
+            Invitación Navideña
         </h1>
 
         <h2 class="text-xl md:text-2xl mt-2 text-gray-300">
@@ -145,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </h2>
 
         <p class="mt-6 text-lg text-gray-300">
-            Te invitamos a celebrar un año de esfuerzo, crecimiento y unión empresarial.
+            Con mucha alegría te invitamos a compartir un momento especial lleno de unión, gratitud y espíritu navideño.
         </p>
 
         <div class="mt-8 bg-yellow-400 text-gray-900 px-7 py-3 rounded-full text-xl font-bold shadow-xl">
@@ -157,89 +167,103 @@ document.addEventListener("DOMContentLoaded", () => {
 
     <!-- DETALLES -->
     <section class="max-w-3xl glass p-6 rounded-2xl shadow-xl fade-in glow-border">
-        <h3 class="text-2xl font-bold text-yellow-300 mb-6 text-nieve">
-            Detalles del Evento
-        </h3>
+
+        <h3 class="text-2xl font-bold text-yellow-300 text-nieve mb-6">Detalles del Evento</h3>
 
         <div class="text-gray-200 text-lg space-y-4">
+
             <p><span class="font-semibold text-yellow-200">Fecha:</span> 20 de diciembre</p>
             <p><span class="font-semibold text-yellow-200">Hora:</span> Desde las 10:00 AM</p>
+
             <p>
                 <span class="font-semibold text-yellow-200">Lugar:</span><br>
-                SHUSHUFINDI, Barrio Las Vegas.
+                Complejo Turístico Apikai<br>
+                Shushufindi km 12 vía a Miss Ecuador
             </p>
 
             <a href="https://maps.app.goo.gl/VLyivvqmRLtEZRSVA?g_st=ipc"
                target="_blank"
-               class="text-blue-400 underline hover:text-blue-300 text-lg">
-                📍 Abrir ubicación en Google Maps
+               class="mt-4 inline-block bg-blue-500 hover:bg-blue-400 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition">
+               📍 Ver ubicación del evento
             </a>
+
         </div>
     </section>
 
     <div class="w-full max-w-xl border-b border-gray-700 my-10"></div>
 
-    <!-- TARJETA CON GUIRNALDAS -->
-    <div class="guirnaldas"></div>
+    <!-- Tarjeta -->
+    <section class="max-w-3xl fade-in text-center">
 
-    <section class="max-w-3xl text-center fade-in">
+        <!-- Luces neón -->
+        <div class="luces-neon">
+            <div class="bola"></div>
+            <div class="bola"></div>
+            <div class="bola"></div>
+            <div class="bola"></div>
+            <div class="bola"></div>
+        </div>
 
+        <!-- Tarjeta mágica -->
         <div id="card-magica" class="card-magica cerrada glass p-8 rounded-2xl glow-border shadow-2xl border border-red-300/20">
+
             <h2 class="text-3xl font-bold text-yellow-300 text-nieve mb-4">
-                🎄✨ Mensaje de Navidad ✨🎄
+                ✨ Mensaje de Navidad ✨
             </h2>
 
             <div id="contenido-magico" class="card-contenido text-gray-200 leading-relaxed text-lg">
+
                 <p class="mb-4">
-                    En esta época especial del año, queremos compartir un mensaje lleno de gratitud,
-                    esperanza y unión con todos los que forman parte de la gran familia 
-                    <span class="font-bold text-yellow-300">Eagletrucks S.A.</span>.
+                    En esta época tan especial, queremos compartir un mensaje lleno de cariño y esperanza 
+                    con quienes hacen grande a nuestra familia Eagletrucks S.A.
                 </p>
 
                 <p class="mb-4">
-                    Que esta Navidad ilumine sus hogares con paz, armonía y amor. Que cada sonrisa
-                    recuerde cuánto hemos avanzado juntos y cuánto podemos lograr en el año que se acerca.
+                    Que la paz, el amor y la gratitud iluminen tu hogar. Que cada sonrisa sea un recordatorio de 
+                    los logros alcanzados y de todas las bendiciones que vienen camino.
                 </p>
 
                 <p class="mb-4">
-                    Renovemos la fe, fortalezcamos los lazos y abramos paso a un 2026 lleno de oportunidades,
-                    crecimiento y bendiciones para todos.
+                    Que celebremos juntos la vida, la unidad y los sueños por cumplir. Que el 2026 sea un año 
+                    próspero, lleno de salud, oportunidades y alegrías para ti y tu familia.
                 </p>
 
                 <p class="text-yellow-300 text-xl font-bold mt-6">
                     ¡Feliz Navidad y próspero Año Nuevo 2026!
                 </p>
             </div>
-        </section>
+        </div>
+    </section>
 
+    <!-- SONIDO CAJITA -->
     <script>
-    // TARJETA + EFECTO CAJA MUSICAL
-    document.addEventListener("DOMContentLoaded", () => {
-        const card = document.getElementById("card-magica");
-        const contenido = document.getElementById("contenido-magico");
-        const sonidoCaja = new Audio("./cajita.mp3");
+        document.addEventListener("DOMContentLoaded", () => {
+            const card = document.getElementById("card-magica");
+            const contenido = document.getElementById("contenido-magico");
+            const sonido = new Audio("./cajita.mp3");
 
-        const observer = new IntersectionObserver((entries)=>{
-            entries.forEach(entry=>{
-                if(entry.isIntersecting){
-                    card.classList.remove("cerrada");
-                    card.classList.add("abierta");
-                    contenido.classList.add("visible");
+            const observer = new IntersectionObserver((entries)=>{
+                entries.forEach(entry=>{
+                    if(entry.isIntersecting){
+                        card.classList.remove("cerrada");
+                        card.classList.add("abierta");
+                        contenido.classList.add("visible");
 
-                    sonidoCaja.volume = 0.5;
-                    sonidoCaja.play().catch(()=>{});
-                }
-            })
-        },{threshold:0.4});
+                        sonido.volume = .5;
+                        sonido.play().catch(()=>{});
+                    }
+                });
+            },{threshold:.4});
 
-        observer.observe(card);
-    });
+            observer.observe(card);
+        });
     </script>
 
     <div class="w-full max-w-xl border-b border-gray-700 my-10"></div>
 
     <!-- FORMULARIO -->
     <section class="max-w-3xl glass p-6 rounded-2xl shadow-xl fade-in glow-border">
+
         <h3 class="text-3xl font-bold text-yellow-300 text-center text-nieve mb-6">
             Confirma tu asistencia
         </h3>
@@ -251,6 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
             action="/gracias.html"
             class="space-y-6 text-gray-200 text-lg"
         >
+
             <input type="hidden" name="form-name" value="asistencia-evento-navidad">
 
             <p class="hidden">
@@ -276,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <label class="font-semibold">¿Asistirá? *</label>
                 <select name="asistencia" required class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700">
                     <option value="">Seleccione...</option>
-                    <option value="Sí">Sí, asistiré</option>
+                    <option value="Sí">Sí asistiré</option>
                     <option value="No">No podré asistir</option>
                 </select>
             </div>
@@ -285,20 +310,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 Enviar Confirmación
             </button>
 
-            <p class="text-center text-sm text-gray-400 mt-4">
-                Tus datos serán usados únicamente para la organización del evento.
-            </p>
         </form>
     </section>
 
     <div class="w-full max-w-xl border-b border-gray-700 my-10"></div>
 
-    <section class="text-center fade-in mt-6">
+    <section class="text-center fade-in">
         <h3 class="text-3xl font-bold text-yellow-300 text-nieve mb-4">
-            🎅🎄 ¡No faltes! 🎄🎅
+            🎅✨ ¡No faltes! ✨🎅
         </h3>
         <p class="text-gray-300 text-lg max-w-xl mx-auto">
-            Será un día especial lleno de alegría, compañerismo y espíritu navideño.
+            Será un día lleno de alegría, unión y espíritu navideño.
         </p>
     </section>
 
