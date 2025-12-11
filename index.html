@@ -17,56 +17,36 @@
         overflow-x: hidden;
     }
 
-    /* Fondo con Santa animado */
+    /* ===============================
+       FONDO AZUL + SANTA GIGANTE
+    ================================ */
     .fondo-santa {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: #0b1a34;
+        background: #0b1a34; 
         overflow: hidden;
         z-index: -3;
     }
 
-    .santa {
+    .santa-big {
         position: absolute;
-        top: 12%;
-        width: 280px;
+        top: 40%;
+        width: 600px;
         opacity: 0.45;
-        animation: santa1 18s linear infinite;
+        animation: santaGigante 22s linear infinite;
     }
 
-    .santa2 {
-        position: absolute;
-        top: 42%;
-        width: 240px;
-        opacity: 0.35;
-        animation: santa2 22s linear infinite;
-    }
-
-    .santa3 {
-        position: absolute;
-        top: 68%;
-        width: 260px;
-        opacity: 0.32;
-        animation: santa3 26s linear infinite;
-    }
-
-    @keyframes santa1 {
-        0% { right: -320px; }
-        100% { right: 110%; }
-    }
-    @keyframes santa2 {
-        0% { left: -320px; }
+    @keyframes santaGigante {
+        0%   { left: -650px; }
         100% { left: 110%; }
     }
-    @keyframes santa3 {
-        0% { right: -320px; }
-        100% { right: 110%; }
-    }
 
-    /* Nieve animada */
+    /* ===============================
+              NIEVE ANIMADA
+    ================================ */
     .snow {
         position: fixed;
         top: 0;
@@ -81,11 +61,15 @@
         opacity: 0.45;
         z-index: -2;
     }
+
     @keyframes snow {
         0% { background-position: 0 0, 0 0, 0 0; }
         100% { background-position: 1000px 2000px, 400px 1200px, -500px 1600px; }
     }
 
+    /* ===============================
+                TARJETA
+    ================================ */
     .card {
         background: #142033;
         border-radius: 18px;
@@ -94,6 +78,9 @@
         box-shadow: 0 0 20px #00000050;
     }
 
+    /* ===============================
+           CONTADOR REGRESIVO
+    ================================ */
     .contador-box {
         background: #0d1524;
         padding: 20px;
@@ -107,6 +94,9 @@
         color: #21d4ff;
     }
 
+    /* ===============================
+               BOTÓN PRINCIPAL
+    ================================ */
     .btn-primary {
         background: linear-gradient(to right, #1ba3ff, #0066ff);
         padding: 12px 26px;
@@ -115,26 +105,30 @@
         transition: .3s;
         display: inline-block;
     }
+
     .btn-primary:hover {
         transform: scale(1.05);
         background: linear-gradient(to right, #45caff, #0077ff);
     }
+
 </style>
 </head>
 
 <body>
 
-<!-- Fondo Santa -->
+<!-- ===============================
+        FONDO CON SANTA GIGANTE
+================================= -->
 <div class="fondo-santa">
-    <img src="santa.png" class="santa">
-    <img src="santa.png" class="santa2">
-    <img src="santa.png" class="santa3">
+    <img src="santa.png" class="santa-big">
 </div>
 
-<!-- Nieve -->
+<!-- NIEVE -->
 <div class="snow"></div>
 
-<!-- Música Navideña -->
+<!-- ===============================
+       MÚSICA NAVIDEÑA
+================================= -->
 <audio id="music" src="navidad.mp3" preload="auto" loop></audio>
 
 <script>
@@ -159,6 +153,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<!-- ===============================
+     CONTENIDO PRINCIPAL
+================================= -->
+
 <div class="max-w-2xl mx-auto px-6 pt-10 pb-24">
 
     <!-- Logo -->
@@ -171,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <h1 class="text-4xl font-bold text-center">🎄 Invitación Navideña Empresarial</h1>
 
         <p class="text-lg text-gray-300 mt-5 leading-relaxed">
-            Estimado equipo:  
+            Estimado equipo:
             Este 20 de diciembre queremos regalarles un momento especial lleno de unión,
             amistad y gratitud. Ha sido un año desafiante, pero gracias a su trabajo,
             compromiso y espíritu inquebrantable, seguimos creciendo como familia empresarial.
@@ -185,32 +183,39 @@ document.addEventListener("DOMContentLoaded", () => {
         </p>
 
         <p class="text-lg text-gray-300 mt-4 leading-relaxed">
-            Gracias por ser parte esencial de esta historia.  
-            Los esperamos para celebrar juntos un momento inolvidable.  
+            Gracias por ser parte esencial de esta historia.
+            Los esperamos para celebrar juntos un momento inolvidable.
         </p>
 
         <hr class="my-8 border-white/10">
 
-        <!-- Contador -->
+        <!-- ===============================
+               CONTADOR
+        ================================ -->
         <h2 class="text-2xl font-bold text-center mb-4">⏳ Falta para el evento</h2>
 
-        <div class="grid grid-cols-4 gap-3 text-center" id="contador">
+        <div class="grid grid-cols-4 gap-3 text-center">
+
             <div class="contador-box">
                 <div class="contador-num" id="dias">0</div>
                 <div>Días</div>
             </div>
+
             <div class="contador-box">
                 <div class="contador-num" id="horas">0</div>
                 <div>Horas</div>
             </div>
+
             <div class="contador-box">
                 <div class="contador-num" id="minutos">0</div>
                 <div>Minutos</div>
             </div>
+
             <div class="contador-box">
                 <div class="contador-num" id="segundos">0</div>
                 <div>Segundos</div>
             </div>
+
         </div>
 
         <script>
@@ -232,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <hr class="my-8 border-white/10">
 
-        <!-- Botón de ubicación -->
+        <!-- UBICACIÓN -->
         <div class="text-center mb-8">
             <a href="https://maps.app.goo.gl/VLyivvqmRLtEZRSVA?g_st=ic"
                class="btn-primary" target="_blank">
@@ -240,10 +245,12 @@ document.addEventListener("DOMContentLoaded", () => {
             </a>
         </div>
 
-        <!-- Formulario -->
+        <!-- ===============================
+                FORMULARIO
+        ================================ -->
         <h2 class="text-2xl font-bold text-center mb-6">📋 Confirma tu asistencia</h2>
 
-        <form action="https://invalvn8n.inversionesalvarado.website/webhook/invitacionempresarial" 
+        <form action="https://invalvn8n.inversionesalvarado.website/webhook/invitacionempresarial"
               method="POST"
               class="space-y-5">
 
