@@ -1,119 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎄 ¡Gracias por Confirmar! – EagleTrucks S.A.</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡Gracias por confirmar!</title>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-        body {
-            background: #0b1a34;
-            overflow-x: hidden;
-        }
+<style>
+body {
+    background: #0b1a33;
+    text-align: center;
+    color: white;
+    padding: 40px;
+    font-family: 'Poppins', sans-serif;
+}
 
-        /* Fondo azul + Santa gigante */
-        .fondo-santa {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0b1a34;
-            overflow: hidden;
-            z-index: -3;
-        }
+.snowflake {
+    position: fixed;
+    top: -10px;
+    color: white;
+    font-size: 12px;
+    user-select: none;
+    animation: fall linear infinite;
+    opacity: 0.7;
+}
 
-        .santa-big {
-            position: absolute;
-            top: 45%;
-            width: 600px;
-            opacity: 0.45;
-            animation: santaVuelo 22s linear infinite;
-        }
-
-        @keyframes santaVuelo {
-            0% { left: -650px; transform: scale(1); }
-            100% { left: 110%; transform: scale(1); }
-        }
-
-        /* Nieve */
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            color: #ffffff;
-            font-size: 1.2em;
-            opacity: 0.8;
-            animation: snowfall linear infinite;
-        }
-
-        @keyframes snowfall {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(110vh); }
-        }
-    </style>
+@keyframes fall {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(110vh) translateX(20px); }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Fondo con Santa -->
-    <div class="fondo-santa">
-        <img src="santa.png" class="santa-big">
-    </div>
+<h1 class="text-4xl font-bold mb-4">🎄 ¡Gracias por confirmar tu asistencia! 🎄</h1>
 
-    <!-- Generador de nieve -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            for (let i = 0; i < 40; i++) {
-                const snow = document.createElement("div");
-                snow.classList.add("snowflake");
-                snow.textContent = "❄";
-                snow.style.left = Math.random() * 100 + "vw";
-                snow.style.opacity = Math.random();
-                snow.style.fontSize = (Math.random() * 10 + 10) + "px";
-                snow.style.animationDuration = (Math.random() * 5 + 5) + "s";
-                snow.style.animationDelay = Math.random() * 5 + "s";
-                document.body.appendChild(snow);
-            }
-        });
-    </script>
+<p class="max-w-2xl mx-auto text-gray-200 leading-relaxed mb-6">
+Tu registro ha sido recibido correctamente.  
+Estamos preparando un evento inolvidable para ti y todo nuestro equipo.  
+Te esperamos con actividades, música, premios y muchas sorpresas más.  
+</p>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <div class="min-h-screen flex items-center justify-center p-6">
+<a href="index.html" class="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-black rounded-full font-bold">
+    Volver a la invitación
+</a>
 
-        <div class="w-full max-w-2xl bg-white/10 backdrop-blur-lg p-10 rounded-3xl shadow-xl border border-white/20 text-center">
-
-            <h1 class="text-4xl md:text-5xl font-bold text-yellow-300 mb-6">
-                🎄 ¡Gracias por Confirmar tu Asistencia!
-            </h1>
-
-            <p class="text-gray-200 text-lg leading-relaxed mb-6">
-                En nombre de <span class="font-bold text-yellow-300">EagleTrucks S.A.</span> queremos expresarte  
-                nuestra gratitud por tomarte el tiempo de confirmar tu presencia en este  
-                evento tan especial. Tu participación llena de vida y energía este  
-                encuentro navideño que preparamos con tanto cariño para ustedes.
-            </p>
-
-            <p class="text-gray-200 text-lg leading-relaxed mb-6">
-                Que esta Navidad te traiga paz, unión y esperanza, y que el 2026 sea un  
-                año de grandes metas cumplidas, prosperidad y nuevas oportunidades para ti  
-                y para tu familia.  
-                Gracias por ser parte de esta gran familia empresarial que sigue creciendo  
-                gracias al esfuerzo, compromiso y corazón de personas como tú.
-            </p>
-
-            <p class="text-gray-300 italic mb-10">
-                ¡Nos vemos el 20 de diciembre para celebrar juntos una Navidad inolvidable! 🎅✨
-            </p>
-
-            <a href="index.html"
-               class="px-8 py-4 bg-yellow-400 hover:bg-yellow-500 text-black font-bold rounded-full shadow-lg transition-all duration-300">
-                Volver a la Invitación
-            </a>
-        </div>
-
-    </div>
+<script>
+for (let i = 0; i < 40; i++) {
+    let f = document.createElement("div");
+    f.className = "snowflake";
+    f.textContent = "❄";
+    f.style.left = Math.random()*100 + "vw";
+    f.style.animationDuration = 6 + Math.random()*6 + "s";
+    document.body.appendChild(f);
+}
+</script>
 
 </body>
 </html>
