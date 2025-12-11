@@ -33,27 +33,6 @@
             100% { transform: translateY(100vh); opacity: 0.2; }
         }
 
-        /* ❄ Nieve animada en títulos */
-        .titulo-navidad {
-            position: relative;
-            display: inline-block;
-            padding-top: 10px;
-        }
-        .titulo-navidad .flakes {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 6px;
-            animation: flotar 2s infinite alternate ease-in-out;
-            opacity: 0.9;
-        }
-        @keyframes flotar {
-            0% { transform: translateX(-50%) translateY(0); }
-            100% { transform: translateX(-50%) translateY(-6px); }
-        }
-
         /* 🎄 Tarjeta navideña */
         .tarjeta {
             transform: scale(0.88);
@@ -88,7 +67,7 @@
 
 <body>
 
-<!-- ❄ Nieve -->
+<!-- ❄ NIEVE -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const total = 45;
@@ -118,9 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
 
     <!-- TÍTULO -->
-    <h1 class="text-center text-4xl font-extrabold text-yellow-400 mt-6 titulo-navidad">
+    <h1 class="text-center text-4xl font-extrabold text-yellow-400 mt-6">
         Invitación Navideña Empresarial
-        <div class="flakes"><span>❄</span><span>❄</span><span>❄</span></div>
     </h1>
 
     <!-- TARJETA ANIMADA -->
@@ -133,19 +111,19 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="absolute -bottom-4 right-4 text-red-400 neon-light text-2xl">●</div>
 
         <p class="text-center text-lg leading-relaxed text-gray-200">
-            En esta hermosa temporada, Eagletrucks S.A. quiere expresar su gratitud a cada uno de ustedes, quienes con dedicación, disciplina y entrega han construido no solo una empresa sólida, sino una verdadera familia laboral.
+            En esta época tan especial del año, Eagletrucks S.A. quiere expresar su profunda gratitud a cada uno de ustedes: personas valiosas, comprometidas y esenciales para el crecimiento de nuestra familia empresarial.
         </p>
 
         <p class="mt-4 text-center text-gray-300 leading-relaxed">
-            Este año ha sido un camino de desafíos superados, metas alcanzadas y aprendizajes compartidos. Gracias por mantenerse firmes, por su compromiso y por aportar con su talento al crecimiento de nuestra organización. Hoy celebramos no solo la Navidad, sino el esfuerzo de todo un equipo que hace posible que sigamos avanzando.
+            Gracias por su esfuerzo, por su dedicación, por su constancia y por mantener viva la visión que juntos hemos construido. Cada desafío superado, cada meta alcanzada y cada paso avanzado ha sido posible gracias al talento humano que ustedes representan.
         </p>
 
         <p class="mt-4 text-center text-gray-300 leading-relaxed">
-            Que esta Navidad llene sus hogares de paz, unión y alegría. Que el Año Nuevo 2026 llegue cargado de salud, nuevas oportunidades y prosperidad para ustedes y sus familias. Gracias por ser parte esencial de Eagletrucks S.A.
+            Que esta Navidad ilumine sus hogares con paz, unión y alegría. Que el Año Nuevo 2026 traiga salud, prosperidad y oportunidades renovadas para ustedes y sus seres queridos. Estamos orgullosos de contar con un equipo que deja huella.
         </p>
 
         <p class="mt-4 text-center text-yellow-300 text-lg font-semibold">
-           🌟 ¡Feliz Navidad y un próspero Año Nuevo 2026! 🌟
+           🎄 ¡Feliz Navidad y un próspero Año Nuevo 2026! 🎄
         </p>
     </div>
 
@@ -161,9 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
     </script>
 
     <!-- 📅 DETALLES -->
-    <h2 class="text-yellow-300 text-3xl font-bold mt-16 titulo-navidad">
+    <h2 class="text-yellow-300 text-3xl font-bold mt-16">
         Detalles del Evento
-        <div class="flakes"><span>❄</span><span>❄</span><span>❄</span></div>
     </h2>
 
     <div class="mt-6 space-y-4 text-gray-300 text-lg">
@@ -180,9 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     <!-- 🕒 CONTADOR -->
-    <h2 class="text-yellow-300 text-3xl font-bold text-center mt-16 titulo-navidad">
+    <h2 class="text-yellow-300 text-3xl font-bold text-center mt-16">
         Cuenta Regresiva
-        <div class="flakes"><span>❄</span><span>❄</span><span>❄</span></div>
     </h2>
 
     <div id="contador" class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mt-8"></div>
@@ -213,26 +189,28 @@ document.addEventListener("DOMContentLoaded", () => {
     </script>
 
 
-    <!-- 📝 FORMULARIO n8n -->
-    <h2 class="text-yellow-300 text-3xl font-bold mt-16 titulo-navidad">
+    <!-- 📝 FORMULARIO -->
+    <h2 class="text-yellow-300 text-3xl font-bold mt-16">
         Confirma tu Asistencia
-        <div class="flakes"><span>❄</span><span>❄</span><span>❄</span></div>
     </h2>
 
     <form action="https://invalvn8n.inversionesalvarado.website/webhook/invitacionempresarial" 
       method="POST" 
       class="bg-[#132034] p-8 rounded-2xl mt-6 border border-white/10 shadow-xl">
 
+        <!-- Nombre -->
         <div class="mb-4">
             <label class="block text-gray-300 mb-1 font-semibold">Nombre completo</label>
             <input name="nombre" required class="w-full p-3 rounded bg-[#0d1524] border border-white/20 text-white">
         </div>
 
+        <!-- Teléfono -->
         <div class="mb-4">
             <label class="block text-gray-300 mb-1 font-semibold">Teléfono</label>
             <input name="telefono" required class="w-full p-3 rounded bg-[#0d1524] border	border-white/20 text-white">
         </div>
 
+        <!-- Asistencia -->
         <div class="mb-4">
             <label class="block text-gray-300 mb-1 font-semibold">¿Asistirá?</label>
             <select name="asistira" required class="w-full p-3 rounded bg-[#0d1524] border border-white/20 text-white">
@@ -241,12 +219,20 @@ document.addEventListener("DOMContentLoaded", () => {
             </select>
         </div>
 
+        <!-- Cantidad -->
+        <div class="mb-6">
+            <label class="block text-gray-300 mb-1 font-semibold">¿Con cuántas personas asistirá?</label>
+            <input type="number" min="0" max="20" name="cantidad" required placeholder="Ej: 0, 1, 2, 3..."
+                   class="w-full p-3 rounded bg-[#0d1524] border border-white/20 text-white">
+        </div>
+
+        <!-- Botón -->
         <button class="w-full bg-yellow-400 text-gray-900 font-bold text-lg py-3 rounded-full hover:bg-yellow-300 transition shadow-lg">
             Enviar Confirmación
         </button>
     </form>
 
-    <script>
+<script>
 document.querySelector("form").addEventListener("submit", function (e) {
     e.preventDefault();
     const form = e.target;
