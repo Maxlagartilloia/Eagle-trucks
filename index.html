@@ -1,261 +1,256 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Navideña - Eagletrucks S.A.</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Invitación Navideña Empresarial</title>
+<link rel="icon" href="logo.png">
 
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+    body {
+        background: linear-gradient(to bottom, #0a1120, #0d172a);
+        font-family: 'Inter', sans-serif;
+        color: white;
+        overflow-x: hidden;
+    }
 
-    <style>
-        body {
-            font-family: "Inter", sans-serif;
-            background: #0b1220;
-            overflow-x: hidden;
-        }
+    /* Animación nieve */
+    .snow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background-image: url('https://i.postimg.cc/9Ff7pYJ7/snow2.png'),
+                          url('https://i.postimg.cc/9Ff7pYJ7/snow2.png'),
+                          url('https://i.postimg.cc/9Ff7pYJ7/snow2.png');
+        animation: snow 12s linear infinite;
+        opacity: 0.45;
+    }
 
-        /* ❄ NIEVE */
-        .snow {
-            position: fixed;
-            top: -10px;
-            color: white;
-            pointer-events: none;
-            user-select: none;
-            animation: fall linear infinite;
-            z-index: 9999;
-        }
-        @keyframes fall {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0.2; }
-        }
+    @keyframes snow {
+        0% { background-position: 0 0, 0 0, 0 0; }
+        100% { background-position: 1000px 2000px, 400px 1200px, -300px 1800px; }
+    }
 
-        /* 🎄 Tarjeta navideña */
-        .tarjeta {
-            transform: scale(0.88);
-            opacity: 0;
-            transition: .7s ease;
-        }
-        .tarjeta.visible {
-            transform: scale(1);
-            opacity: 1;
-        }
+    /* Tarjeta mágica */
+    .card {
+        background: #142033;
+        border-radius: 18px;
+        padding: 25px;
+        border: 2px solid #ffffff30;
+        box-shadow: 0 0 20px #ffffff20;
+        position: relative;
+        overflow: hidden;
+    }
 
-        /* ✨ Luces neón */
-        .neon-light {
-            animation: parpadeo 1.6s infinite alternate;
-        }
-        @keyframes parpadeo {
-            0% { opacity: 0.3; filter: drop-shadow(0 0 2px #ff0000); }
-            100% { opacity: 1; filter: drop-shadow(0 0 6px #ff0000); }
-        }
+    /* Luces navideñas borde */
+    .luces {
+        width: 100%;
+        height: 55px;
+        background: url("https://i.postimg.cc/2jzfjFDm/lucesnavidad.gif") center no-repeat;
+        background-size: contain;
+        margin-bottom: 20px;
+    }
 
-        /* 🕒 Contador estilo premium navideño */
-        .contador-box {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 18px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(255,0,0,0.25);
-        }
-        
-    </style>
+    /* Contador limpio estilo premium */
+    .contador-box {
+        background: #0d1524;
+        padding: 25px;
+        border-radius: 15px;
+        border: 1px solid #ffffff25;
+        text-align: center;
+        box-shadow: 0 0 15px #00000040;
+    }
+
+    .contador-num {
+        font-size: 48px;
+        font-weight: 700;
+        color: #27e6ff;
+    }
+
+    .contador-label {
+        font-size: 18px;
+        color: #aac6d6;
+    }
+
+    /* Botón elegante */
+    .btn-primary {
+        background: linear-gradient(to right, #1ba3ff, #0066ff);
+        padding: 14px 28px;
+        border-radius: 12px;
+        font-weight: bold;
+        transition: 0.3s;
+        display: inline-block;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(to right, #45caff, #0077ff);
+        transform: scale(1.05);
+    }
+</style>
 </head>
 
 <body>
 
-<!-- ❄ NIEVE -->
+<div class="snow"></div>
+
+<!-- Música automática -->
+<audio id="music" src="navidad.mp3" preload="auto" loop></audio>
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const total = 45;
-    for (let i = 0; i < total; i++) {
-        let s = document.createElement("div");
-        s.className = "snow";
-        s.textContent = "❆";
-        s.style.left = Math.random()*100 + "vw";
-        s.style.fontSize = (Math.random()*10 + 10) + "px";
-        s.style.animationDuration = (Math.random()*5 + 5) + "s";
-        s.style.animationDelay = Math.random()*4 + "s";
-        document.body.appendChild(s);
-    }
+    const audio = document.getElementById("music");
+    audio.volume = 0.45;
+
+    const playAudio = () => {
+        audio.play().catch(() => {});
+    };
+
+    playAudio();
+
+    const forcePlay = () => {
+        audio.play();
+        document.removeEventListener("click", forcePlay);
+        document.removeEventListener("touchstart", forcePlay);
+    };
+
+    document.addEventListener("click", forcePlay);
+    document.addEventListener("touchstart", forcePlay);
 });
 </script>
 
+<div class="max-w-2xl mx-auto px-6 pt-10 pb-28">
 
-<!-- 🎧 Sonido tarjeta -->
-<audio id="sound" src="cajita.mp3" preload="auto"></audio>
-
-<!-- 🎄 CONTENIDO -->
-<div class="max-w-3xl mx-auto text-white p-6">
-
-    <!-- LOGO -->
-    <div class="flex justify-center mt-10">
-        <img src="logo.png" class="h-32 neon-light">
+    <!-- Logo -->
+    <div class="w-full flex justify-center mb-6">
+        <img src="logo.png" class="h-28 drop-shadow-xl">
     </div>
 
-    <!-- TÍTULO -->
-    <h1 class="text-center text-4xl font-extrabold text-yellow-400 mt-6">
-        Invitación Navideña Empresarial
-    </h1>
+    <!-- Luces navideñas -->
+    <div class="luces"></div>
 
-    <!-- TARJETA ANIMADA -->
-    <div id="card" class="tarjeta mt-10 bg-[#132034] border border-white/10 p-8 rounded-3xl relative shadow-xl">
-        
-        <!-- Luces decorativas -->
-        <div class="absolute -top-4 left-4 text-red-400 neon-light text-2xl">●</div>
-        <div class="absolute -top-4 right-4 text-green-400 neon-light text-2xl">●</div>
-        <div class="absolute -bottom-4 left-4 text-yellow-300 neon-light text-2xl">●</div>
-        <div class="absolute -bottom-4 right-4 text-red-400 neon-light text-2xl">●</div>
+    <!-- Tarjeta mágica -->
+    <div class="card">
 
-        <p class="text-center text-lg leading-relaxed text-gray-200">
-            En esta época tan especial del año, Eagletrucks S.A. quiere expresar su profunda gratitud a cada uno de ustedes: personas valiosas, comprometidas y esenciales para el crecimiento de nuestra familia empresarial.
+        <h1 class="text-4xl font-bold text-center mb-4">🎄 Invitación Navideña Empresarial</h1>
+
+        <p class="text-lg leading-relaxed text-gray-300 mt-4">
+            Estimado equipo,  
+            Este 20 de diciembre queremos regalarles un momento especial lleno de unión,
+            amistad y gratitud. Ha sido un año desafiante, pero gracias a su trabajo,
+            compromiso y espíritu inquebrantable, seguimos creciendo como familia empresarial.
         </p>
 
-        <p class="mt-4 text-center text-gray-300 leading-relaxed">
-            Gracias por su esfuerzo, por su dedicación, por su constancia y por mantener viva la visión que juntos hemos construido. Cada desafío superado, cada meta alcanzada y cada paso avanzado ha sido posible gracias al talento humano que ustedes representan.
+        <p class="text-lg leading-relaxed text-gray-300 mt-4">
+            Que esta Navidad nos recuerde que los mayores regalos no vienen envueltos,  
+            sino construidos día a día con esfuerzo, dedicación y corazón.  
+            Les deseamos paz, salud, prosperidad y que el 2026 llegue cargado de
+            oportunidades, bendiciones y metas cumplidas para todos ustedes y sus familias.
         </p>
 
-        <p class="mt-4 text-center text-gray-300 leading-relaxed">
-            Que esta Navidad ilumine sus hogares con paz, unión y alegría. Que el Año Nuevo 2026 traiga salud, prosperidad y oportunidades renovadas para ustedes y sus seres queridos. Estamos orgullosos de contar con un equipo que deja huella.
+        <p class="text-lg leading-relaxed text-gray-300 mt-4">
+            Gracias por ser parte esencial de esta historia.  
+            Los esperamos para celebrar juntos y compartir un momento inolvidable.
         </p>
 
-        <p class="mt-4 text-center text-yellow-300 text-lg font-semibold">
-           🎄 ¡Feliz Navidad y un próspero Año Nuevo 2026! 🎄
-        </p>
+        <hr class="my-6 border-white/10">
+
+        <!-- Contador regresivo -->
+        <h2 class="text-2xl font-bold text-center mb-4">⏳ Falta para el evento</h2>
+
+        <div id="contador" class="grid grid-cols-4 gap-3 text-center">
+            <div class="contador-box">
+                <div class="contador-num" id="dias">0</div>
+                <div class="contador-label">Días</div>
+            </div>
+            <div class="contador-box">
+                <div class="contador-num" id="horas">0</div>
+                <div class="contador-label">Horas</div>
+            </div>
+            <div class="contador-box">
+                <div class="contador-num" id="minutos">0</div>
+                <div class="contador-label">Minutos</div>
+            </div>
+            <div class="contador-box">
+                <div class="contador-num" id="segundos">0</div>
+                <div class="contador-label">Segundos</div>
+            </div>
+        </div>
+
+        <script>
+        const evento = new Date("2025-12-20T10:00:00").getTime();
+        setInterval(() => {
+            const ahora = new Date().getTime();
+            const diff = evento - ahora;
+
+            document.getElementById("dias").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById("horas").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutos").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("segundos").innerText = Math.floor((diff % (1000 * 60)) / 1000);
+        }, 1000);
+        </script>
+
+        <hr class="my-8 border-white/10">
+
+        <!-- Ubicación -->
+        <div class="text-center mb-6">
+            <a href="https://maps.app.goo.gl/VLyivvqmRLtEZRSVA?g_st=ic"
+               target="_blank"
+               class="btn-primary">
+               📍 Ver ubicación del evento
+            </a>
+        </div>
+
+        <!-- FORMULARIO WEBHOOK -->
+        <h2 class="text-2xl font-bold text-center mb-4">📋 Confirmación de asistencia</h2>
+
+        <form action="https://invalvn8n.inversionesalvarado.website/webhook/invitacionempresarial"
+              method="POST"
+              class="space-y-6">
+
+            <!-- Nombre -->
+            <div>
+                <label class="font-semibold">Nombre completo</label>
+                <input name="nombre" required
+                    class="w-full p-3 rounded bg-[#0d1524] border border-white/20 text-white">
+            </div>
+
+            <!-- Cédula -->
+            <div>
+                <label class="font-semibold">Cédula</label>
+                <input name="cedula" required 
+                       class="w-full p-3 rounded bg-[#0d1524] border border-white/20 text-white">
+            </div>
+
+            <!-- Asistencia -->
+            <div>
+                <label class="font-semibold">¿Asistirá?</label>
+                <select name="asistencia" 
+                        class="w-full p-3 rounded bg-[#0d1524] border border-white/20 text-white" required>
+                    <option value="SI">Sí, asistiré</option>
+                    <option value="NO">No podré asistir</option>
+                </select>
+            </div>
+
+            <!-- Cantidad -->
+            <div>
+                <label class="font-semibold">¿Con cuántas personas asistirá?</label>
+                <select name="cantidad" required
+                        class="w-full p-3 rounded bg-[#0d1524] border border-white/20 text-white">
+                    <option value="1">1 persona (solo usted)</option>
+                    <option value="2">2 personas (usted + 1)</option>
+                </select>
+            </div>
+
+            <div class="text-center pt-4">
+                <button class="btn-primary text-lg">Enviar registro</button>
+            </div>
+        </form>
     </div>
-
-    <script>
-    const card = document.getElementById("card");
-    const obs = new IntersectionObserver((e)=>{
-        if(e[0].isIntersecting){
-            card.classList.add("visible");
-            document.getElementById("sound").play();
-        }
-    },{threshold:.3});
-    obs.observe(card);
-    </script>
-
-    <!-- 📅 DETALLES -->
-    <h2 class="text-yellow-300 text-3xl font-bold mt-16">
-        Detalles del Evento
-    </h2>
-
-    <div class="mt-6 space-y-4 text-gray-300 text-lg">
-        <p><span class="font-bold text-yellow-400">📅 Fecha:</span> 20 de diciembre</p>
-        <p><span class="font-bold text-yellow-400">⏰ Hora:</span> Desde las 10:00 AM</p>
-        <p><span class="font-bold text-yellow-400">📍 Lugar:</span> Complejo Turístico Apikai</p>
-    </div>
-
-    <!-- Botón Google Maps -->
-    <a href="https://maps.app.goo.gl/VLyivvqmRLtEZRSVA?g_st=ic" target="_blank"
-       class="block mt-6 mx-auto bg-green-500 hover:bg-green-400 text-gray-900 font-bold text-lg w-fit px-8 py-3 rounded-full shadow-lg transition">
-        Abrir Ubicación en Google Maps
-    </a>
-
-
-    <!-- 🕒 CONTADOR -->
-    <h2 class="text-yellow-300 text-3xl font-bold text-center mt-16">
-        Cuenta Regresiva
-    </h2>
-
-    <div id="contador" class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mt-8"></div>
-
-    <script>
-        const eventDate = new Date("2025-12-20T10:00:00");
-
-        function updateCountdown(){
-            const now = new Date();
-            const diff = eventDate - now;
-
-            if(diff <= 0) return;
-
-            const d = Math.floor(diff / (1000*60*60*24));
-            const h = Math.floor((diff / (1000*60*60)) % 24);
-            const m = Math.floor((diff / (1000*60)) % 60);
-            const s = Math.floor((diff / 1000) % 60);
-
-            document.getElementById("contador").innerHTML = `
-                <div class="contador-box"><p class="text-5xl font-bold text-red-400">${d}</p><p>Días</p></div>
-                <div class="contador-box"><p class="text-5xl font-bold text-green-400">${h}</p><p>Horas</p></div>
-                <div class="contador-box"><p class="text-5xl font-bold text-yellow-300">${m}</p><p>Minutos</p></div>
-                <div class="contador-box"><p class="text-5xl font-bold text-white">${s}</p><p>Segundos</p></div>
-            `;
-        }
-        setInterval(updateCountdown,1000);
-        updateCountdown();
-    </script>
-
-
-    <!-- 📝 FORMULARIO -->
-    <h2 class="text-yellow-300 text-3xl font-bold mt-16">
-        Confirma tu Asistencia
-    </h2>
-
-    <form action="https://invalvn8n.inversionesalvarado.website/webhook/invitacionempresarial" 
-      method="POST" 
-      class="bg-[#132034] p-8 rounded-2xl mt-6 border border-white/10 shadow-xl">
-
-        <!-- Nombre -->
-        <div class="mb-4">
-            <label class="block text-gray-300 mb-1 font-semibold">Nombre completo</label>
-            <input name="nombre" required class="w-full p-3 rounded bg-[#0d1524] border border-white/20 text-white">
-        </div>
-
-        <!-- Teléfono -->
-        <div class="mb-4">
-            <label class="block text-gray-300 mb-1 font-semibold">Teléfono</label>
-            <input name="telefono" required class="w-full p-3 rounded bg-[#0d1524] border	border-white/20 text-white">
-        </div>
-
-        <!-- Asistencia -->
-        <div class="mb-4">
-            <label class="block text-gray-300 mb-1 font-semibold">¿Asistirá?</label>
-            <select name="asistira" required class="w-full p-3 rounded bg-[#0d1524] border border-white/20 text-white">
-                <option value="Sí asistiré">Sí asistiré</option>
-                <option value="No podré asistir">No podré asistir</option>
-            </select>
-        </div>
-
-        <!-- Cantidad -->
-        <div class="mb-6">
-            <label class="block text-gray-300 mb-1 font-semibold">¿Con cuántas personas asistirá?</label>
-            <input type="number" min="0" max="20" name="cantidad" required placeholder="Ej: 0, 1, 2, 3..."
-                   class="w-full p-3 rounded bg-[#0d1524] border border-white/20 text-white">
-        </div>
-
-        <!-- Botón -->
-        <button class="w-full bg-yellow-400 text-gray-900 font-bold text-lg py-3 rounded-full hover:bg-yellow-300 transition shadow-lg">
-            Enviar Confirmación
-        </button>
-    </form>
-
-<script>
-document.querySelector("form").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-
-    fetch(form.action, {
-        method: "POST",
-        body: data
-    })
-    .then(() => {
-        window.location.href = "gracias.html";
-    })
-    .catch(() => {
-        alert("Hubo un error enviando tu información. Intenta nuevamente.");
-    });
-});
-</script>
-
-
-    <p class="text-center text-gray-500 mt-14 mb-10 text-sm">
-        © 2025 Eagletrucks S.A.
-    </p>
-
 </div>
 
 </body>
