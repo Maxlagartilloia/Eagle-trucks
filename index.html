@@ -1,206 +1,208 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Invitación Navideña Empresarial</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invitación Navideña Empresarial</title>
 
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-        body {
-            background: #0b1a34;
-            color: white;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
+<style>
+    body {
+        background: #0b1a33;
+        overflow-x: hidden;
+        position: relative;
+        font-family: 'Poppins', sans-serif;
+    }
 
-        /* Fondo con Santas */
-        .fondo-santa {
-            position: fixed;
-            inset: 0;
-            z-index: -3;
-            background: #0b1a34 !important;
-            overflow: hidden;
-        }
+    /* Nieve animada */
+    .snowflake {
+        position: fixed;
+        top: -10px;
+        color: white;
+        font-size: 12px;
+        user-select: none;
+        animation: fall linear infinite;
+        opacity: 0.7;
+    }
 
-        .santa {
-            position: absolute;
-            width: 420px;
-            opacity: 0.45;
-        }
+    @keyframes fall {
+        0% { transform: translateY(0) translateX(0); }
+        100% { transform: translateY(110vh) translateX(20px); }
+    }
 
-        .santa1 { top: 15%; animation: santa1 22s linear infinite; }
-        .santa2 { top: 40%; animation: santa2 27s linear infinite; opacity: 0.35;}
-        .santa3 { top: 65%; animation: santa3 32s linear infinite; opacity: 0.30;}
+    /* Santa animado */
+    .santa {
+        position: fixed;
+        top: 10%;
+        left: -300px;
+        width: 260px;
+        opacity: 0.7;
+        animation: santa-move 18s linear infinite;
+        z-index: -1;
+    }
 
-        @keyframes santa1 { 0%{left:-500px;} 100%{left:110%;} }
-        @keyframes santa2 { 0%{right:-500px;} 100%{right:110%;} }
-        @keyframes santa3 { 0%{left:-600px;} 100%{left:110%;} }
+    @keyframes santa-move {
+        0% { left: -350px; top: 8%; }
+        50% { left: 110%; top: 12%; }
+        100% { left: -350px; top: 10%; }
+    }
 
-        /* Nieve */
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            color: #ffffffb4;
-            font-size: 1.2rem;
-            animation: fall linear infinite;
-            pointer-events: none;
-            z-index: 50;
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
-    </style>
+    /* Caja principal */
+    .card {
+        background: rgba(15, 27, 48, 0.9);
+        backdrop-filter: blur(6px);
+        border-radius: 20px;
+        padding: 30px;
+        margin-top: 40px;
+        box-shadow: 0 0 40px rgba(255,255,255,0.05);
+    }
+</style>
 </head>
 
 <body>
 
 <!-- Música autoplay -->
-<audio id="musica" autoplay loop>
-    <source src="navidad.mp3" type="audio/mpeg">
-</audio>
+<audio id="musica" src="navidad.mp3" autoplay loop></audio>
 
 <script>
 document.addEventListener("click", () => {
-    const audio = document.getElementById("musica");
-    audio.volume = 0.6;
-    audio.play();
-}, { once: true });
+    document.getElementById("musica").play();
+});
 </script>
 
+<!-- Santa -->
+<img src="santa.png" class="santa">
 
-<!-- Fondo Santa Claus -->
-<div class="fondo-santa">
-    <img src="santa.png" class="santa santa1">
-    <img src="santa.png" class="santa santa2">
-    <img src="santa.png" class="santa santa3">
-</div>
-
-<!-- Generador de nieve -->
+<!-- Nieve generada -->
 <script>
-function crearNieve(){
-    const snow = document.createElement("div");
-    snow.classList.add("snowflake");
-    snow.textContent = "❄";
-    snow.style.left = Math.random() * window.innerWidth + "px";
-    snow.style.animationDuration = (5 + Math.random() * 5) + "s";
-    document.body.appendChild(snow);
-    setTimeout(() => snow.remove(), 10000);
+for (let i = 0; i < 40; i++) {
+    let flake = document.createElement("div");
+    flake.className = "snowflake";
+    flake.textContent = "❄";
+    flake.style.left = Math.random() * 100 + "vw";
+    flake.style.animationDuration = 6 + Math.random() * 6 + "s";
+    flake.style.fontSize = 10 + Math.random() * 10 + "px";
+    document.body.appendChild(flake);
 }
-setInterval(crearNieve, 120);
 </script>
 
-<!-- CONTENIDO PRINCIPAL -->
-<div class="max-w-2xl mx-auto mt-10 mb-16 bg-[#101e36] bg-opacity-90 p-8 rounded-3xl shadow-2xl border border-white/10 backdrop-blur">
+<!-- Logo -->
+<div class="w-full flex justify-center mt-6">
+    <img src="logo.png" class="h-28">
+</div>
 
-    <!-- Logo -->
-    <div class="flex justify-center mb-6">
-        <img src="logo.png" class="w-36 h-36 object-contain">
-    </div>
+<!-- Contenido -->
+<div class="max-w-3xl mx-auto card text-gray-200">
 
-    <!-- Título -->
-    <h1 class="text-center text-3xl font-bold mb-4">
-        🎄 Invitación Navideña Empresarial
-    </h1>
+<h2 class="text-3xl font-bold text-center mb-4">
+    🎄 Invitación Navideña Empresarial
+</h2>
 
-    <!-- Texto largo -->
-    <p class="text-gray-300 leading-relaxed mb-6">
-        Estimado equipo:<br><br>
-        Este 20 de diciembre queremos ofrecerles un día verdaderamente especial, diseñado para reconocer su esfuerzo, celebrar sus logros y fortalecer la unidad que nos caracteriza como familia empresarial. 
-        Cada uno de ustedes representa un pilar esencial en el crecimiento de nuestra compañía.
-        <br><br>
+<p class="leading-relaxed mb-6">
+Estimado equipo:<br><br>
 
-        A partir de las <strong>2:00 PM</strong> iniciaremos nuestro gran <strong>evento deportivo</strong>, con canchas disponibles, espacios amplios, juegos, actividades recreativas y dinámicas grupales. 
-        Contamos con <strong>duchas habilitadas</strong>, <strong>baños amplios</strong> y <strong>áreas especiales para cambiarse</strong>.
-        <br><br>
+Este 20 de diciembre queremos ofrecerles un día verdaderamente especial, diseñado para reconocer su esfuerzo, celebrar sus logros y fortalecer la unidad que nos caracteriza como familia empresarial. Cada uno de ustedes representa un pilar fundamental en el crecimiento de nuestra compañía, y por eso esta jornada ha sido preparada con dedicación y gratitud.
+<br><br>
 
-        Tendremos <strong>premios, sorpresas y juegos</strong> preparados para todos ustedes, fomentando la unión, el compañerismo y la diversión.
-        <br><br>
+A partir de las <strong>2:00 PM</strong> daremos inicio a nuestro gran <strong>evento deportivo</strong>, una tarde pensada para compartir, reír, competir sanamente y disfrutar del trabajo en equipo. Para su total comodidad, contamos con <strong>duchas habilitadas</strong>, <strong>baños amplios</strong> y <strong>espacios adecuados para cambiarse y arreglarse</strong>. 
+<br><br>
 
-        A las <strong>7:30 PM</strong> disfrutaremos de nuestra <strong>Cena Navideña Empresarial</strong>, un espacio para agradecer por este año y celebrar como la gran familia corporativa que somos.
-        <br><br>
+Nuestras <strong>canchas deportivas</strong> y el <strong>amplio espacio recreativo</strong> estarán listos para recibirlos con actividades para todos los gustos. Además, tendremos <strong>juegos interactivos</strong>, dinámicas grupales, <strong>premios</strong> y <strong>sorpresas especiales</strong> preparadas exclusivamente para esta celebración.
+<br><br>
 
-        Cerraremos la noche con un espectáculo musical a cargo de <strong>Neil Armas y su Banda</strong>, quienes llenarán de alegría y energía esta celebración.
-        <br><br>
+A las <strong>7:30 PM</strong> nos reuniremos para nuestra <strong>Cena Navideña Empresarial</strong>, un momento para reflexionar sobre lo vivido, agradecer por lo alcanzado y renovar nuestras energías para el año que está por comenzar.
+<br><br>
 
-        Que esta Navidad traiga paz, salud, bendiciones y prosperidad para ustedes y sus familias. Gracias por su compromiso, su trabajo y por dejar huella en esta historia.
-    </p>
+Para engalanar la noche, contaremos con la presentación especial de <strong>Neil Armas y su Banda</strong>, quienes nos acompañarán con un espectáculo musical lleno de energía, buena vibra y alegría, ideal para celebrar como merecemos.
+<br><br>
 
-    <hr class="border-white/20 my-6">
+Los esperamos para vivir juntos un día inolvidable, lleno de camaradería, espíritu navideño y gratitud.
+</p>
 
-    <!-- Contador regresivo -->
-    <h2 class="text-center text-2xl font-bold mb-4">⏳ Falta para el evento</h2>
-    <div id="contador" class="grid grid-cols-4 gap-4 text-center mb-8"></div>
+<hr class="border-gray-600 my-6">
 
-    <script>
-        const eventDate = new Date("2025-12-20T14:00:00");
+<!-- Cuenta regresiva -->
+<h3 class="text-center text-xl font-bold mb-4">⏳ Falta para el evento</h3>
 
-        function actualizarContador() {
-            const now = new Date();
-            const diff = eventDate - now;
+<div class="grid grid-cols-4 gap-3 text-center text-cyan-300 text-xl font-bold" id="countdown"></div>
 
-            if (diff <= 0) return document.getElementById("contador").innerHTML = "<p class='col-span-4'>¡El evento ha comenzado!</p>";
+<script>
+let objetivo = new Date("Dec 20, 2025 14:00:00").getTime();
 
-            const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutos = Math.floor((diff / (1000 * 60)) % 60);
-            const segundos = Math.floor((diff / 1000) % 60);
+setInterval(()=>{
+    let ahora = new Date().getTime();
+    let distancia = objetivo - ahora;
 
-            document.getElementById("contador").innerHTML = `
-                <div><p class='text-4xl font-bold text-[#00eaff]'>${dias}</p><p>Días</p></div>
-                <div><p class='text-4xl font-bold text-[#00eaff]'>${horas}</p><p>Horas</p></div>
-                <div><p class='text-4xl font-bold text-[#00eaff]'>${minutos}</p><p>Minutos</p></div>
-                <div><p class='text-4xl font-bold text-[#00eaff]'>${segundos}</p><p>Segundos</p></div>
-            `;
-        }
-        setInterval(actualizarContador, 1000);
-    </script>
+    if(distancia < 0){ return; }
 
-    <!-- Botón ubicación -->
-    <div class="text-center my-6">
-        <a href="https://maps.app.goo.gl/VLyivvqmRLtEZRSVA?g_st=ic" target="_blank"
-           class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-bold">
-            📍 Ver Ubicación del Evento
-        </a>
-    </div>
+    let d = Math.floor(distancia/(1000*60*60*24));
+    let h = Math.floor((distancia%(1000*60*60*24))/(1000*60*60));
+    let m = Math.floor((distancia%(1000*60*60))/(1000*60));
+    let s = Math.floor((distancia%(1000*60))/1000);
 
-    <!-- Formulario -->
-    <h2 class="text-center text-2xl font-bold mb-4">Confirma tu Asistencia</h2>
+    document.getElementById("countdown").innerHTML = `
+        <div>${d}<br><span class='text-sm text-gray-300'>Días</span></div>
+        <div>${h}<br><span class='text-sm text-gray-300'>Horas</span></div>
+        <div>${m}<br><span class='text-sm text-gray-300'>Minutos</span></div>
+        <div>${s}<br><span class='text-sm text-gray-300'>Segundos</span></div>`;
+},1000);
+</script>
 
-    <form action="https://invalvn8n.inversionesalvarado.website/webhook/invitacionempresarial" method="POST"
-          class="space-y-4">
+<!-- Botón ubicación -->
+<div class="text-center my-6">
+    <a href="https://maps.app.goo.gl/VLyivvqmRLtEZRSVA?g_st=ic" target="_blank"
+    class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-full text-white font-semibold">
+        📍 Ver ubicación del evento
+    </a>
+</div>
 
-        <input name="nombre" required placeholder="Nombre completo"
-               class="w-full p-3 rounded bg-[#0f1b30] border border-white/10"/>
+<hr class="border-gray-600 my-6">
 
-        <input name="telefono" required placeholder="Teléfono"
-               class="w-full p-3 rounded bg-[#0f1b30] border border-white/10"/>
+<h3 class="text-center text-2xl font-bold mb-4">Confirma tu Asistencia</h3>
 
-        <select name="asistencia" class="w-full p-3 rounded bg-[#0f1b30] border border-white/10">
-            <option value="Asistirá">Asistirá</option>
-            <option value="No asistirá">No asistirá</option>
-        </select>
+<!-- FORMULARIO -->
+<form id="formulario" class="space-y-4">
 
-        <select name="personas" class="w-full p-3 rounded bg-[#0f1b30] border border-white/10">
-            <option value="1">Asistiré solo</option>
-            <option value="2">Asistiré con 1 acompañante</option>
-        </select>
+    <input name="nombre" required placeholder="Nombre completo"
+           class="w-full p-3 rounded bg-[#0f1b30] border border-white/10"/>
 
-        <button class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-3 rounded-full">
-            Enviar Confirmación
-        </button>
-    </form>
+    <input name="telefono" required placeholder="Teléfono"
+           class="w-full p-3 rounded bg-[#0f1b30] border border-white/10"/>
+
+    <select name="asistencia" class="w-full p-3 rounded bg-[#0f1b30] border border-white/10">
+        <option value="Asistirá">Asistirá</option>
+        <option value="No asistirá">No asistirá</option>
+    </select>
+
+    <select name="personas" class="w-full p-3 rounded bg-[#0f1b30] border border-white/10">
+        <option value="1">Asistiré solo</option>
+        <option value="2">Asistiré con 1 acompañante</option>
+    </select>
+
+    <button class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-3 rounded-full">
+        Enviar Confirmación
+    </button>
+</form>
 
 </div>
 
-<!-- Mensaje final -->
-<div class="text-center text-white/60 text-sm pb-10">
-    © 2025 Evento Empresarial – EagleTrucks S.A.  
-</div>
+<!-- ENVÍO A N8N INVISIBLE + REDIRECCIÓN -->
+<script>
+document.getElementById("formulario").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const data = new FormData(this);
+
+    await fetch("https://invalvn8n.inversionesalvarado.website/webhook/invitacionempresarial", {
+        method: "POST",
+        body: data
+    });
+
+    window.location.href = "gracias.html";
+});
+</script>
 
 </body>
 </html>
