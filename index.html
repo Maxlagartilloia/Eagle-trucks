@@ -1,235 +1,205 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Navideña Empresarial – EagleTrucks S.A.</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invitación Navideña Empresarial</title>
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
         body {
-            background: #0b1a34 !important;
-            margin: 0;
-            overflow-x: hidden;
+            background: #0b1a34;
+            color: white;
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
 
-        /* Fondo con 3 Santas cruzando */
+        /* Fondo con Santas */
         .fondo-santa {
             position: fixed;
             inset: 0;
+            z-index: -3;
             background: #0b1a34 !important;
             overflow: hidden;
-            z-index: -3;
         }
 
         .santa {
             position: absolute;
-            width: 380px;
-            opacity: 0.40;
-            pointer-events: none;
+            width: 420px;
+            opacity: 0.45;
         }
 
-        .santa1 { top: 18%; animation: santaVuelo1 20s linear infinite; }
-        .santa2 { top: 45%; width: 450px; opacity: 0.35; animation: santaVuelo2 25s linear infinite; }
-        .santa3 { top: 70%; width: 420px; opacity: 0.3; animation: santaVuelo3 30s linear infinite; }
+        .santa1 { top: 15%; animation: santa1 22s linear infinite; }
+        .santa2 { top: 40%; animation: santa2 27s linear infinite; opacity: 0.35;}
+        .santa3 { top: 65%; animation: santa3 32s linear infinite; opacity: 0.30;}
 
-        @keyframes santaVuelo1 {
-            0% { left: -450px; }
-            100% { left: 110%; }
-        }
-        @keyframes santaVuelo2 {
-            0% { right: -500px; }
-            100% { right: 110%; }
-        }
-        @keyframes santaVuelo3 {
-            0% { left: -500px; }
-            100% { left: 110%; }
-        }
+        @keyframes santa1 { 0%{left:-500px;} 100%{left:110%;} }
+        @keyframes santa2 { 0%{right:-500px;} 100%{right:110%;} }
+        @keyframes santa3 { 0%{left:-600px;} 100%{left:110%;} }
 
         /* Nieve */
         .snowflake {
             position: fixed;
             top: -10px;
-            color: white;
-            opacity: 0.8;
-            font-size: 1.2em;
-            animation: caer linear infinite;
-            z-index: -2;
+            color: #ffffffb4;
+            font-size: 1.2rem;
+            animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 50;
         }
 
-        @keyframes caer {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(110vh); }
-        }
-
-        /* Card principal */
-        .card {
-            background: rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.15);
+        @keyframes fall {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
         }
     </style>
 </head>
 
 <body>
 
-<!-- MÚSICA -->
-<audio id="music" src="navidad.mp3" preload="auto" loop></audio>
+<!-- Música autoplay -->
+<audio id="musica" autoplay loop>
+    <source src="navidad.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const audio = document.getElementById("music");
-    audio.volume = 0.50;
-
-    const playAudio = () => {
-        audio.play().catch(() => {});
-    };
-
-    playAudio();
-
-    document.addEventListener("click", playAudio, { once: true });
-    document.addEventListener("touchstart", playAudio, { once: true });
-});
+document.addEventListener("click", () => {
+    const audio = document.getElementById("musica");
+    audio.volume = 0.6;
+    audio.play();
+}, { once: true });
 </script>
 
-<!-- FONDO CON SANTAS -->
+
+<!-- Fondo Santa Claus -->
 <div class="fondo-santa">
     <img src="santa.png" class="santa santa1">
     <img src="santa.png" class="santa santa2">
     <img src="santa.png" class="santa santa3">
 </div>
 
-<!-- NIEVE -->
+<!-- Generador de nieve -->
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    for (let i = 0; i < 40; i++) {
-        const h = document.createElement("div");
-        h.classList.add("snowflake");
-        h.textContent = "❄";
-        h.style.left = Math.random() * 100 + "vw";
-        h.style.fontSize = (Math.random() * 10 + 10) + "px";
-        h.style.animationDuration = (Math.random() * 5 + 5) + "s";
-        h.style.animationDelay = Math.random() * 5 + "s";
-        document.body.appendChild(h);
-    }
-});
+function crearNieve(){
+    const snow = document.createElement("div");
+    snow.classList.add("snowflake");
+    snow.textContent = "❄";
+    snow.style.left = Math.random() * window.innerWidth + "px";
+    snow.style.animationDuration = (5 + Math.random() * 5) + "s";
+    document.body.appendChild(snow);
+    setTimeout(() => snow.remove(), 10000);
+}
+setInterval(crearNieve, 120);
 </script>
 
 <!-- CONTENIDO PRINCIPAL -->
-<div class="min-h-screen flex flex-col items-center p-6">
+<div class="max-w-2xl mx-auto mt-10 mb-16 bg-[#101e36] bg-opacity-90 p-8 rounded-3xl shadow-2xl border border-white/10 backdrop-blur">
 
-    <div class="w-full max-w-3xl card p-10 mt-6 shadow-xl">
+    <!-- Logo -->
+    <div class="flex justify-center mb-6">
+        <img src="logo.png" class="w-36 h-36 object-contain">
+    </div>
 
-        <!-- LOGO -->
-        <div class="flex justify-center mb-6">
-            <img src="logo.png" alt="Logo" class="w-36 drop-shadow-xl">
-        </div>
+    <!-- Título -->
+    <h1 class="text-center text-3xl font-bold mb-4">
+        🎄 Invitación Navideña Empresarial
+    </h1>
 
-        <h1 class="text-3xl md:text-4xl text-center font-bold text-white mb-6">
-            🎄 Invitación Navideña Empresarial
-        </h1>
+    <!-- Texto largo -->
+    <p class="text-gray-300 leading-relaxed mb-6">
+        Estimado equipo:<br><br>
+        Este 20 de diciembre queremos ofrecerles un día verdaderamente especial, diseñado para reconocer su esfuerzo, celebrar sus logros y fortalecer la unidad que nos caracteriza como familia empresarial. 
+        Cada uno de ustedes representa un pilar esencial en el crecimiento de nuestra compañía.
+        <br><br>
 
-        <p class="text-gray-200 leading-relaxed text-lg mb-6">
-            Estimado equipo, este <b>20 de diciembre</b> queremos regalarles un momento especial lleno de unión, amistad y gratitud.
-            Ha sido un año desafiante, pero gracias a su trabajo, compromiso y espíritu inquebrantable, seguimos creciendo como familia empresarial.
-        </p>
+        A partir de las <strong>2:00 PM</strong> iniciaremos nuestro gran <strong>evento deportivo</strong>, con canchas disponibles, espacios amplios, juegos, actividades recreativas y dinámicas grupales. 
+        Contamos con <strong>duchas habilitadas</strong>, <strong>baños amplios</strong> y <strong>áreas especiales para cambiarse</strong>.
+        <br><br>
 
-        <p class="text-gray-200 leading-relaxed text-lg mb-6">
-            Que esta Navidad nos recuerde que los mayores regalos no vienen envueltos, sino construidos día a día con esfuerzo,
-            dedicación y corazón. Les deseamos paz, salud, prosperidad y que el <b>2026</b> llegue cargado de bendiciones, oportunidades
-            y metas cumplidas para ustedes y sus familias.
-        </p>
+        Tendremos <strong>premios, sorpresas y juegos</strong> preparados para todos ustedes, fomentando la unión, el compañerismo y la diversión.
+        <br><br>
 
-        <p class="text-gray-200 leading-relaxed text-lg mb-10">
-            Gracias por ser parte esencial de esta historia. Los esperamos para celebrar juntos un momento inolvidable.
-        </p>
+        A las <strong>7:30 PM</strong> disfrutaremos de nuestra <strong>Cena Navideña Empresarial</strong>, un espacio para agradecer por este año y celebrar como la gran familia corporativa que somos.
+        <br><br>
 
-        <!-- CUENTA REGRESIVA -->
-        <h2 class="text-center text-xl text-white font-semibold mb-4">⏳ Falta para el evento</h2>
+        Cerraremos la noche con un espectáculo musical a cargo de <strong>Neil Armas y su Banda</strong>, quienes llenarán de alegría y energía esta celebración.
+        <br><br>
 
-        <div id="countdown" class="grid grid-cols-4 gap-4 text-center text-white mb-8"></div>
+        Que esta Navidad traiga paz, salud, bendiciones y prosperidad para ustedes y sus familias. Gracias por su compromiso, su trabajo y por dejar huella en esta historia.
+    </p>
 
-        <script>
-        const eventDate = new Date("2025-12-20T10:00:00").getTime();
+    <hr class="border-white/20 my-6">
 
-        setInterval(() => {
-            const now = new Date().getTime();
+    <!-- Contador regresivo -->
+    <h2 class="text-center text-2xl font-bold mb-4">⏳ Falta para el evento</h2>
+    <div id="contador" class="grid grid-cols-4 gap-4 text-center mb-8"></div>
+
+    <script>
+        const eventDate = new Date("2025-12-20T14:00:00");
+
+        function actualizarContador() {
+            const now = new Date();
             const diff = eventDate - now;
 
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            if (diff <= 0) return document.getElementById("contador").innerHTML = "<p class='col-span-4'>¡El evento ha comenzado!</p>";
 
-            document.getElementById("countdown").innerHTML = `
-                ${box(d, "Días")}
-                ${box(h, "Horas")}
-                ${box(m, "Minutos")}
-                ${box(s, "Segundos")}
+            const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutos = Math.floor((diff / (1000 * 60)) % 60);
+            const segundos = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("contador").innerHTML = `
+                <div><p class='text-4xl font-bold text-[#00eaff]'>${dias}</p><p>Días</p></div>
+                <div><p class='text-4xl font-bold text-[#00eaff]'>${horas}</p><p>Horas</p></div>
+                <div><p class='text-4xl font-bold text-[#00eaff]'>${minutos}</p><p>Minutos</p></div>
+                <div><p class='text-4xl font-bold text-[#00eaff]'>${segundos}</p><p>Segundos</p></div>
             `;
-        }, 1000);
+        }
+        setInterval(actualizarContador, 1000);
+    </script>
 
-        const box = (value, label) => `
-            <div class="p-4 bg-black/30 rounded-xl border border-white/20">
-                <p class="text-3xl font-bold">${value}</p>
-                <p class="text-sm">${label}</p>
-            </div>
-        `;
-        </script>
-
-        <!-- BOTÓN UBICACIÓN -->
-        <a href="https://maps.app.goo.gl/VLyivvqmRLtEZRSVA?g_st=ic"
-           target="_blank"
-           class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-full mb-10 transition">
-           📍 Ver ubicación del evento
+    <!-- Botón ubicación -->
+    <div class="text-center my-6">
+        <a href="https://maps.app.goo.gl/VLyivvqmRLtEZRSVA?g_st=ic" target="_blank"
+           class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-bold">
+            📍 Ver Ubicación del Evento
         </a>
-
-        <!-- FORMULARIO -->
-        <h2 class="text-center text-xl text-white font-semibold mb-4">Confirma tu asistencia</h2>
-
-        <form action="https://invalvn8n.inversionesalvarado.website/webhook/invitacionempresarial"
-              method="POST"
-              class="space-y-6">
-
-            <div>
-                <label class="text-white">Nombre completo</label>
-                <input type="text" name="nombre" required
-                       class="w-full p-3 rounded bg-black/30 border border-white/20 text-white">
-            </div>
-
-            <div>
-                <label class="text-white">Teléfono</label>
-                <input type="text" name="telefono" required
-                       class="w-full p-3 rounded bg-black/30 border border-white/20 text-white">
-            </div>
-
-            <div>
-                <label class="text-white">¿Asistirá?</label>
-                <select name="asistencia" class="w-full p-3 rounded bg-black/30 border border-white/20 text-white">
-                    <option value="Si asistiré">Sí asistiré</option>
-                    <option value="No podré asistir">No podré asistir</option>
-                </select>
-            </div>
-
-            <div>
-                <label class="text-white">¿Con cuántas personas asistirá?</label>
-                <select name="cantidad" required
-                        class="w-full p-3 rounded bg-black/30 border border-white/20 text-white">
-                    <option value="1">1 persona (solo yo)</option>
-                    <option value="2">2 personas (yo + 1)</option>
-                </select>
-            </div>
-
-            <button type="submit"
-                    class="w-full bg-yellow-400 text-black font-bold py-3 rounded-full hover:bg-yellow-500 transition">
-                Enviar Confirmación
-            </button>
-        </form>
-
     </div>
+
+    <!-- Formulario -->
+    <h2 class="text-center text-2xl font-bold mb-4">Confirma tu Asistencia</h2>
+
+    <form action="https://invalvn8n.inversionesalvarado.website/webhook/invitacionempresarial" method="POST"
+          class="space-y-4">
+
+        <input name="nombre" required placeholder="Nombre completo"
+               class="w-full p-3 rounded bg-[#0f1b30] border border-white/10"/>
+
+        <input name="telefono" required placeholder="Teléfono"
+               class="w-full p-3 rounded bg-[#0f1b30] border border-white/10"/>
+
+        <select name="asistencia" class="w-full p-3 rounded bg-[#0f1b30] border border-white/10">
+            <option value="Asistirá">Asistirá</option>
+            <option value="No asistirá">No asistirá</option>
+        </select>
+
+        <select name="personas" class="w-full p-3 rounded bg-[#0f1b30] border border-white/10">
+            <option value="1">Asistiré solo</option>
+            <option value="2">Asistiré con 1 acompañante</option>
+        </select>
+
+        <button class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-3 rounded-full">
+            Enviar Confirmación
+        </button>
+    </form>
+
+</div>
+
+<!-- Mensaje final -->
+<div class="text-center text-white/60 text-sm pb-10">
+    © 2025 Evento Empresarial – EagleTrucks S.A.  
 </div>
 
 </body>
